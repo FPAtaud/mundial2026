@@ -1,0 +1,4125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f5c518">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mundial 2026">
+<meta name="application-name" content="Mundial 2026">
+<meta name="description" content="Calendario, posiciones, resultados y planteles del Mundial 2026">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Mundial 2026 – Calendario Completo</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #f5c518;
+    --gold-dark: #c9a00e;
+    --red: #c0392b;
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --surface2: #1e1e1e;
+    --border: #2a2a2a;
+    --text: #f0f0f0;
+    --muted: #888;
+    --arg: #74b9ff;
+    --telefe: #1abc9c;
+    --tvpublica: #3498db;
+    --dsports: #e67e22;
+    --disney: #2980b9;
+    --paramount: #8e44ad;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1200 50%, #0a0a0a 100%);
+    border-bottom: 3px solid var(--gold);
+    padding: 2rem 1rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '⚽';
+    position: absolute;
+    font-size: 200px;
+    opacity: 0.03;
+    top: -30px;
+    left: -40px;
+  }
+  header::after {
+    content: '🏆';
+    position: absolute;
+    font-size: 200px;
+    opacity: 0.03;
+    top: -30px;
+    right: -40px;
+  }
+  header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-shadow: 0 0 40px rgba(245,197,24,0.3);
+    line-height: 1;
+  }
+  header p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* LEYENDA CANALES */
+  .leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    padding: 1.2rem 1rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* FILTROS */
+  .filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 0.7rem 0.5rem;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    width: 100%;
+    overflow-x: hidden;
+  }
+  .filtro-btn {
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+  .filtro-btn:hover, .filtro-btn.activo {
+    background: var(--gold);
+    color: #000;
+    border-color: var(--gold);
+  }
+
+  /* CONTENIDO */
+  .contenido {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 4rem;
+    overflow-x: hidden;
+  }
+
+  /* DÍA */
+  .dia-bloque {
+    margin-bottom: 1.5rem;
+  }
+  .dia-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+    background: var(--surface2);
+    border-left: 4px solid var(--gold);
+    margin-bottom: 0.5rem;
+    position: relative;
+  }
+  .dia-nombre {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold);
+  }
+  .dia-fecha {
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .dia-count {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--muted);
+    background: var(--border);
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+
+  /* PARTIDO */
+  .partido {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 1rem;
+    min-width: 0;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid transparent;
+    margin-bottom: 4px;
+    transition: all 0.2s;
+  }
+  .partido:hover {
+    border-color: var(--border);
+    border-left-color: var(--gold);
+    background: #1a1a1a;
+    transform: translateX(2px);
+  }
+  .partido.arg-match {
+    border-left-color: var(--arg) !important;
+    background: linear-gradient(90deg, rgba(116,185,255,0.06) 0%, var(--surface) 100%);
+  }
+  .partido.arg-match:hover {
+    background: linear-gradient(90deg, rgba(116,185,255,0.1) 0%, #1a1a1a 100%);
+  }
+
+  .partido-hora {
+    text-align: center;
+  }
+  .partido-hora .hora {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .partido-hora .zona {
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .partido-info {}
+  .equipos {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .arg-name { color: var(--arg); }
+
+  .partido-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  .grupo-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .sede-tag {
+    font-size: 0.68rem;
+    color: var(--muted);
+  }
+
+  .canales {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: flex-end;
+  }
+  .canal-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  .c-telefe { background: rgba(26,188,156,0.2); color: #1abc9c; border: 1px solid #1abc9c44; }
+  .c-tvpublica { background: rgba(52,152,219,0.2); color: #74b9ff; border: 1px solid #3498db44; }
+  .c-dsports { background: rgba(230,126,34,0.2); color: #e67e22; border: 1px solid #e67e2244; }
+  .c-disney { background: rgba(41,128,185,0.2); color: #5dade2; border: 1px solid #2980b944; }
+  .c-paramount { background: rgba(142,68,173,0.2); color: #bb8fce; border: 1px solid #8e44ad44; }
+
+  /* ARG BADGE */
+  .arg-badge {
+    font-size: 0.6rem;
+    font-weight: 700;
+    background: var(--arg);
+    color: #000;
+    padding: 1px 6px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* FASE HEADER */
+  .fase-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    color: var(--red);
+    text-align: center;
+    padding: 2rem 0 1rem;
+    text-transform: uppercase;
+    border-top: 2px solid var(--border);
+    margin-top: 2rem;
+    position: relative;
+  }
+  .fase-titulo::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--gold);
+    margin: 0.5rem auto 0;
+  }
+
+  /* ARGENTINA BOX */
+  .arg-section {
+    background: linear-gradient(135deg, rgba(116,185,255,0.08), rgba(0,0,0,0));
+    border: 1px solid rgba(116,185,255,0.25);
+    border-radius: 4px;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .arg-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: var(--arg);
+    margin-bottom: 0.8rem;
+  }
+
+  /* OCULTAR */
+  .oculto { display: none !important; }
+
+
+  /* ====== POPUP MODAL ====== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .modal-overlay.activo { display: flex; }
+  .modal {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 6px;
+    max-width: 620px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalIn 0.25s ease;
+  }
+  @keyframes modalIn {
+    from { opacity:0; transform: translateY(20px) scale(0.97); }
+    to   { opacity:1; transform: none; }
+  }
+  .modal-header {
+    background: linear-gradient(135deg,#1a1200,#0a0a0a);
+    border-bottom: 2px solid var(--gold);
+    padding: 1.2rem 1.5rem 1rem;
+    position: relative;
+  }
+  .modal-partido-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .modal-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.3rem, 4vw, 1.9rem);
+    letter-spacing: 2px;
+    color: var(--gold);
+    line-height: 1.1;
+    margin-bottom: 0.9rem;
+  }
+  .modal-info-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    align-items: flex-start;
+  }
+  .modal-hora-bloque { line-height: 1; }
+  .modal-hora-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    color: #fff;
+    line-height: 1;
+  }
+  .modal-fecha-big {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 3px;
+  }
+  .modal-sede-bloque {
+    flex: 1;
+    min-width: 120px;
+  }
+  .modal-sede-label {
+    font-size: 0.68rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+  .modal-sede-text {
+    font-size: 0.85rem;
+    color: #ddd;
+    font-weight: 600;
+  }
+  .modal-canales-bloque { width: 100%; margin-top: 0.6rem; }
+  .modal-canales-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .modal-close {
+    position: absolute;
+    top: 0.8rem; right: 1rem;
+    background: none; border: none;
+    color: var(--muted);
+    font-size: 1.6rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+    z-index: 2;
+  }
+  .modal-close:hover { color: #fff; }
+  .modal-body { padding: 1.2rem 1.5rem; }
+  .modal-equipos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+  .modal-equipo-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.9rem;
+  }
+  .modal-equipo-nombre {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-equipo-info { font-size: 0.81rem; color: #ccc; line-height: 1.55; }
+  .modal-equipo-info .lbl {
+    color: var(--muted);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-top: 0.55rem;
+    margin-bottom: 0.1rem;
+    font-weight: 700;
+  }
+  .modal-loading {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    color: var(--muted);
+  }
+  .spinner {
+    display: inline-block;
+    width: 34px; height: 34px;
+    border: 3px solid #2a2a2a;
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 0.8rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .modal-error { color: #e74c3c; font-size:0.85rem; padding:1rem; text-align:center; }
+  .partido { cursor: pointer; }
+  @media (max-width: 520px) {
+    .modal-equipos-grid { grid-template-columns: 1fr; }
+    .modal-hora-big { font-size: 2rem; }
+  }
+  /* ====== FIN POPUP ====== */
+
+  /* ====== POPUP MODAL ====== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .modal-overlay.activo { display: flex; }
+  .modal {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 6px;
+    max-width: 620px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalIn 0.25s ease;
+  }
+  @keyframes modalIn {
+    from { opacity:0; transform: translateY(20px) scale(0.97); }
+    to   { opacity:1; transform: none; }
+  }
+  .modal-header {
+    background: linear-gradient(135deg,#1a1200,#0a0a0a);
+    border-bottom: 2px solid var(--gold);
+    padding: 1.2rem 3rem 1rem 1.5rem;
+    position: relative;
+  }
+  .modal-partido-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .modal-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+    letter-spacing: 2px;
+    color: var(--gold);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .modal-info-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .modal-hora-bloque { line-height: 1; min-width: 80px; }
+  .modal-hora-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: #fff;
+    line-height: 1;
+  }
+  .modal-fecha-big {
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 3px;
+  }
+  .modal-sede-bloque { flex: 1; min-width: 120px; }
+  .modal-sede-label {
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+    font-weight: 700;
+  }
+  .modal-sede-text { font-size: 0.82rem; color: #ddd; font-weight: 600; }
+  .modal-canales-bloque { width: 100%; margin-top: 0.5rem; }
+  .modal-canales-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .modal-close {
+    position: absolute;
+    top: 0.8rem; right: 1rem;
+    background: none; border: none;
+    color: var(--muted);
+    font-size: 1.6rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: #fff; }
+  .modal-body { padding: 1.2rem 1.5rem; }
+  .modal-equipos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+  .modal-equipo-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.9rem;
+  }
+  .modal-equipo-nombre {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-equipo-info { font-size: 0.8rem; color: #ccc; line-height: 1.55; }
+  .modal-equipo-info .lbl {
+    color: var(--muted);
+    font-size: 0.67rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-top: 0.55rem;
+    margin-bottom: 0.1rem;
+    font-weight: 700;
+  }
+  .modal-loading {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    color: var(--muted);
+  }
+  .spinner {
+    display: inline-block;
+    width: 34px; height: 34px;
+    border: 3px solid #2a2a2a;
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 0.8rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .modal-error { color: #e74c3c; font-size:0.85rem; padding:1rem; text-align:center; }
+  .partido { cursor: pointer; }
+  @media (max-width: 520px) {
+    .modal-equipos-grid { grid-template-columns: 1fr; }
+    .modal-hora-big { font-size: 1.8rem; }
+  }
+  /* ====== FIN POPUP ====== */
+  @media (max-width: 600px) {
+    .partido {
+      grid-template-columns: 70px 1fr;
+    }
+    .canales {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .partido-hora .hora { font-size: 1.2rem; }
+    .equipos { font-size: 0.9rem; }
+  }
+
+  /* ====== BUSCADOR ====== */
+  .buscador-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0.3rem 0 0.1rem;
+  }
+  .buscador-box {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+  }
+  .buscador-input {
+    width: 100%;
+    background: #1a1a1a;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.88rem;
+    padding: 0.45rem 2.2rem 0.45rem 2rem;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+  }
+  .buscador-input:focus {
+    border-color: var(--gold);
+  }
+  .buscador-input::placeholder { color: #555; }
+  .buscador-icon {
+    position: absolute;
+    left: 0.55rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+    font-size: 0.85rem;
+    pointer-events: none;
+  }
+  .buscador-clear {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 1rem;
+    cursor: pointer;
+    line-height: 1;
+    display: none;
+    padding: 0;
+  }
+  .buscador-clear:hover { color: var(--text); }
+  .buscador-resultado {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+    padding: 0.3rem 0 0;
+    letter-spacing: 0.5px;
+  }
+  .buscador-highlight {
+    background: rgba(245,197,24,0.25);
+    border-radius: 2px;
+    padding: 0 1px;
+  }
+  /* ====== FIN BUSCADOR ====== */
+
+  
+
+  /* ====== FILTROS EN FILAS ====== */
+  .filtros {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .filtros-fila {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+    align-items: center;
+  }
+  .filtros-plataformas {
+    border-top: 1px solid var(--border);
+    padding-top: 0.5rem;
+    width: 100%;
+  }
+  .filtros-label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    font-family: 'Barlow Condensed', sans-serif;
+    white-space: nowrap;
+  }
+  .filtro-canal[data-canal="telefe"].activo    { background: #1abc9c; border-color: #1abc9c; color: #000; }
+  .filtro-canal[data-canal="tvpublica"].activo { background: #3498db; border-color: #3498db; color: #000; }
+  .filtro-canal[data-canal="dsports"].activo   { background: #e67e22; border-color: #e67e22; color: #000; }
+  .filtro-canal[data-canal="disney"].activo    { background: #5dade2; border-color: #5dade2; color: #000; }
+  .filtro-canal[data-canal="paramount"].activo { background: #bb8fce; border-color: #bb8fce; color: #000; }
+  /* ====== FIN FILTROS EN FILAS ====== */
+
+  /* ====== PESTAÑA POSICIONES ====== */
+  .nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: var(--surface);
+    border-bottom: 2px solid var(--gold);
+    position: sticky;
+    top: 0;
+    z-index: 200;
+  }
+  .nav-tab {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    padding: 0.7rem 2.5rem;
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .nav-tab:hover { color: var(--text); }
+  .nav-tab.activo { color: var(--gold); border-bottom-color: var(--gold); }
+
+  .tab-panel { display: none; }
+  .tab-panel.activo { display: block; }
+
+  /* Posiciones */
+  .pos-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 4rem;
+  }
+  .pos-loading {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--muted);
+  }
+  .pos-error {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #e74c3c;
+    font-size: 0.9rem;
+  }
+  .pos-grupos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 1rem;
+  }
+  .pos-grupo {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .pos-grupo-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    color: #000;
+    background: var(--gold);
+    padding: 0.4rem 0.8rem;
+    text-transform: uppercase;
+  }
+  .pos-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+  }
+  .pos-tabla thead tr {
+    background: var(--surface2);
+  }
+  .pos-tabla thead th {
+    padding: 0.3rem 0.5rem;
+    color: var(--muted);
+    font-weight: 700;
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+  .pos-tabla thead th:first-child { text-align: left; padding-left: 0.7rem; }
+  .pos-tabla tbody tr {
+    border-bottom: 1px solid #1e1e1e;
+    transition: background 0.15s;
+  }
+  .pos-tabla tbody tr:hover { background: #1a1a1a; }
+  .pos-tabla tbody tr.clasificado-directo { border-left: 3px solid #2ecc71; }
+  .pos-tabla tbody tr.clasificado-tercero { border-left: 3px solid #f39c12; }
+  .pos-tabla tbody tr.eliminado { border-left: 3px solid var(--border); }
+  .pos-tabla td {
+    padding: 0.45rem 0.5rem;
+    text-align: center;
+    color: var(--text);
+  }
+  .pos-tabla td:first-child {
+    text-align: left;
+    padding-left: 0.5rem;
+    font-weight: 600;
+    max-width: 130px;
+  }
+  .pos-pos {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    color: var(--muted);
+    width: 18px;
+    display: inline-block;
+    text-align: right;
+    margin-right: 4px;
+  }
+  .pos-pts {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    color: var(--gold);
+    font-weight: 900;
+  }
+  .pos-bandera {
+    font-size: 0.95rem;
+    margin-right: 3px;
+  }
+  .pos-leyenda {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+    padding: 1rem 0 0.5rem;
+    font-size: 0.72rem;
+    color: var(--muted);
+    flex-wrap: wrap;
+  }
+  .pos-leyenda span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .pos-leyenda .dot {
+    width: 8px; height: 14px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .pos-actualizado {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--muted);
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .pos-refresh-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.72rem;
+    padding: 0.2rem 0.7rem;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    font-family: 'Barlow', sans-serif;
+    transition: all 0.2s;
+  }
+  .pos-refresh-btn:hover { border-color: var(--gold); color: var(--gold); }
+  /* ====== FIN PESTAÑA POSICIONES ====== */
+
+  /* ====== RESULTADOS EN VIVO ====== */
+  .match-live-banner {
+    text-align: center;
+    background: rgba(192,57,43,0.15);
+    border: 1px solid rgba(192,57,43,0.4);
+    color: #e74c3c;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 3px;
+    animation: pulseLive 1.5s ease-in-out infinite;
+  }
+  @keyframes pulseLive {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  .match-live-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: #e74c3c;
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: pulseLive 1s ease-in-out infinite;
+  }
+  .match-dia-header {
+    padding: 0.6rem 0.5rem 0.3rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+  }
+  .match-dia-nombre {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: capitalize;
+  }
+  .match-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border);
+    border-radius: 3px;
+    padding: 0.7rem 1rem;
+    margin-bottom: 5px;
+    transition: all 0.2s;
+  }
+  .match-card:hover { background: #1a1a1a; }
+  .match-card-live {
+    border-left-color: #e74c3c !important;
+    background: linear-gradient(90deg, rgba(192,57,43,0.06) 0%, var(--surface) 100%);
+  }
+  .match-card-ft { border-left-color: #2ecc71; }
+  .match-meta {
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.4rem;
+  }
+  .match-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .match-team {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .match-team-home { justify-content: flex-end; }
+  .match-team-away { justify-content: flex-start; }
+  .match-flag { font-size: 1rem; }
+  .match-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 2px;
+    min-width: 60px;
+  }
+  .match-score-live { color: #e74c3c; }
+  .match-score-sep { color: var(--muted); font-size: 1.2rem; }
+  .match-score-sched {
+    font-size: 0.7rem;
+    text-align: center;
+    min-width: 60px;
+  }
+  .match-status-row {
+    text-align: center;
+    margin-top: 0.3rem;
+    font-size: 0.65rem;
+  }
+  .match-status-live {
+    background: rgba(192,57,43,0.2);
+    color: #e74c3c;
+    border: 1px solid rgba(192,57,43,0.4);
+    padding: 1px 6px;
+    border-radius: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 0.65rem;
+  }
+  .match-status-ft {
+    background: rgba(46,204,113,0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(46,204,113,0.3);
+    padding: 1px 6px;
+    border-radius: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 0.65rem;
+  }
+  .match-status-sched {
+    color: var(--muted);
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+  }
+  /* ====== FIN RESULTADOS ====== */
+  /* ====== SELECCIONES ====== */
+  .sel-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 4rem;
+  }
+  .sel-intro {
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.5px;
+  }
+  .sel-grupos-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+  }
+  .sel-grupo-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 0.25rem 0.7rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .sel-grupo-btn:hover, .sel-grupo-btn.activo {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #000;
+  }
+  .sel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.7rem;
+  }
+  .sel-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.9rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .sel-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(245,197,24,0.04), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .sel-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+  .sel-card:hover::after { opacity: 1; }
+  .sel-card-flag { font-size: 2rem; line-height: 1; flex-shrink: 0; }
+  .sel-card-info { flex: 1; min-width: 0; }
+  .sel-card-nombre {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sel-card-grupo {
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+  .sel-card-arrow {
+    font-size: 0.7rem;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+  .sel-card:hover .sel-card-arrow { transform: translateX(3px); color: var(--gold); }
+
+  /* Detalle */
+  .sel-detalle {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1rem 1rem 4rem;
+  }
+  .sel-detalle-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0 1rem;
+    border-bottom: 2px solid var(--gold);
+    margin-bottom: 1.2rem;
+  }
+  .sel-back-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 0.3rem 0.8rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .sel-back-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .sel-detalle-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    letter-spacing: 3px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .sel-detalle-sub {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: auto;
+  }
+  .sel-pos-section {
+    margin-bottom: 1.5rem;
+  }
+  .sel-pos-titulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0.5rem;
+  }
+  .sel-jugadores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.5rem;
+  }
+  .sel-jugador-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.7rem 0.8rem;
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+    transition: background 0.15s;
+  }
+  .sel-jugador-card:hover { background: #1e1e1e; }
+  .sel-jugador-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .sel-jugador-info { flex: 1; min-width: 0; }
+  .sel-jugador-nombre {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sel-jugador-club {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sel-jugador-stats {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 4px;
+  }
+  .sel-stat {
+    font-size: 0.65rem;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+  }
+  .sel-stat-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1;
+  }
+  .sel-stat-lbl {
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .sel-ai-badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    background: rgba(245,197,24,0.1);
+    border: 1px solid rgba(245,197,24,0.25);
+    color: var(--gold);
+    padding: 1px 5px;
+    border-radius: 10px;
+    letter-spacing: 1px;
+    margin-bottom: 0.7rem;
+  }
+  .sel-loading-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+    padding: 1rem 0;
+  }
+  .sel-loading-inline .spinner { width: 20px; height: 20px; border-width: 2px; }
+  @media (max-width: 600px) {
+    .sel-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    .sel-jugadores-grid { grid-template-columns: 1fr; }
+  }
+  /* ====== FIN SELECCIONES ====== */
+
+
+  /* ============================================
+     RESPONSIVE MOBILE — Prioridad máxima
+     ============================================ */
+
+  /* Base: evitar overflow horizontal */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  @media (max-width: 480px) {
+
+    /* ---- HEADER ---- */
+    header { padding: 1.2rem 0.8rem; }
+    header h1 { font-size: 2.4rem; letter-spacing: 2px; }
+    header p { font-size: 0.68rem; letter-spacing: 1px; }
+
+    /* ---- LEYENDA ---- */
+    .leyenda { font-size: 0.68rem; gap: 0.4rem; padding: 0.8rem 0.5rem; }
+    .leyenda-item { gap: 0.3rem; }
+
+    /* ---- NAV TABS ---- */
+    .nav-tabs { gap: 0; overflow-x: auto; justify-content: flex-start; padding: 0 0.2rem; }
+    .nav-tab { font-size: 0.75rem; padding: 0.6rem 0.8rem; letter-spacing: 1px; white-space: nowrap; flex-shrink: 0; }
+
+    /* ---- FILTROS ---- */
+    .filtros { padding: 0.6rem 0.5rem; gap: 0.4rem; }
+    .filtros-fila { gap: 0.3rem; }
+    .filtro-btn { font-size: 0.7rem; padding: 0.3rem 0.6rem; letter-spacing: 0.5px; }
+    .filtros-label { font-size: 0.62rem; }
+    .buscador-input { font-size: 0.8rem; padding: 0.4rem 1.8rem 0.4rem 1.7rem; }
+    .buscador-resultado { font-size: 0.68rem; }
+
+    /* ---- CONTENIDO ---- */
+    .contenido { padding: 0.8rem 0.4rem 3rem; }
+
+    /* ---- DÍA HEADER ---- */
+    .dia-header { padding: 0.5rem 0.6rem; gap: 0.5rem; }
+    .dia-nombre { font-size: 0.95rem; letter-spacing: 1px; }
+    .dia-fecha { font-size: 0.7rem; }
+    .dia-count { font-size: 0.65rem; }
+
+    /* ---- PARTIDO ---- */
+    .partido {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem 0.7rem;
+    }
+    .partido-hora {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .partido-hora .hora { font-size: 1.1rem; line-height: 1; }
+    .partido-hora .zona { font-size: 0.62rem; }
+    .equipos { font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .partido-meta { gap: 0.3rem; }
+    .grupo-tag { font-size: 0.62rem; padding: 1px 5px; }
+    .sede-tag { font-size: 0.62rem; }
+    .arg-badge { font-size: 0.55rem; }
+    .canales {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+    .canal-badge { font-size: 0.6rem; padding: 1px 5px; }
+
+    /* ---- FASE TITULO ---- */
+    .fase-titulo { font-size: 1.4rem; letter-spacing: 2px; padding: 1.2rem 0 0.8rem; }
+
+    /* ---- MODAL ---- */
+    .modal { border-radius: 0; max-height: 100vh; height: 100vh; overflow-y: auto; }
+    .modal-overlay { padding: 0; align-items: flex-end; }
+    .modal-header { padding: 1rem 2.5rem 0.8rem 0.9rem; }
+    .modal-titulo { font-size: 1.1rem; }
+    .modal-hora-big { font-size: 1.8rem; }
+    .modal-sede-text { font-size: 0.75rem; }
+    .modal-body { padding: 0.9rem; }
+    .modal-equipos-grid { grid-template-columns: 1fr; gap: 0.6rem; }
+    .modal-equipo-nombre { font-size: 0.88rem; }
+    .modal-equipo-info { font-size: 0.76rem; }
+
+    /* ---- POSICIONES ---- */
+    .pos-container { padding: 0.8rem 0.4rem 3rem; }
+    .pos-grupos-grid { grid-template-columns: 1fr; gap: 0.7rem; }
+    .pos-tabla { font-size: 0.72rem; }
+    .pos-tabla thead th { font-size: 0.6rem; padding: 0.25rem 0.3rem; }
+    .pos-tabla td { padding: 0.35rem 0.3rem; }
+    .pos-grupo-titulo { font-size: 0.85rem; }
+    .pos-pts { font-size: 0.9rem; }
+    .pos-leyenda { font-size: 0.65rem; gap: 0.8rem; }
+    .pos-actualizado { font-size: 0.65rem; }
+
+    /* ---- RESULTADOS ---- */
+    .match-card { padding: 0.5rem 0.6rem; }
+    .match-team { font-size: 0.8rem; gap: 0.3rem; }
+    .match-score { font-size: 1.3rem; min-width: 45px; }
+    .match-meta { font-size: 0.6rem; }
+    .match-dia-nombre { font-size: 0.85rem; }
+    .match-live-banner { font-size: 0.75rem; }
+    .match-flag { font-size: 0.85rem; }
+    .match-tname {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 90px;
+    }
+
+    /* ---- SELECCIONES ---- */
+    .sel-container { padding: 0.8rem 0.4rem 3rem; }
+    .sel-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+    .sel-card { padding: 0.6rem 0.7rem; gap: 0.5rem; }
+    .sel-card-flag { font-size: 1.5rem; }
+    .sel-card-nombre { font-size: 0.78rem; }
+    .sel-card-grupo { font-size: 0.58rem; }
+    .sel-grupos-nav { gap: 0.25rem; }
+    .sel-grupo-btn { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
+    .sel-intro { font-size: 0.75rem; }
+    .sel-detalle { padding: 0.8rem 0.4rem 3rem; }
+    .sel-detalle-titulo { font-size: 1.3rem; }
+    .sel-detalle-sub { font-size: 0.65rem; display: none; }
+    .sel-jugadores-grid { grid-template-columns: 1fr; }
+    .sel-jugador-card { padding: 0.55rem 0.65rem; }
+    .sel-jugador-nombre { font-size: 0.82rem; }
+    .sel-jugador-club { font-size: 0.65rem; }
+    .sel-jugador-num { font-size: 1.1rem; min-width: 20px; }
+    .sel-stat-val { font-size: 0.8rem; }
+    .sel-stat-lbl { font-size: 0.5rem; }
+    .sel-pos-titulo { font-size: 0.72rem; }
+    .sel-back-btn { font-size: 0.75rem; padding: 0.25rem 0.6rem; }
+  }
+
+  /* Tablets angostas */
+  @media (max-width: 768px) and (min-width: 481px) {
+    .pos-grupos-grid { grid-template-columns: repeat(2, 1fr); }
+    .partido { grid-template-columns: 65px 1fr; }
+    .canales { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; }
+    .nav-tab { font-size: 0.85rem; padding: 0.65rem 1.2rem; }
+    .sel-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Safe area para iPhones con notch */
+  @supports (padding: max(0px)) {
+    .nav-tabs { padding-left: max(0.2rem, env(safe-area-inset-left)); padding-right: max(0.2rem, env(safe-area-inset-right)); }
+    .contenido, .pos-container, .sel-container, .sel-detalle { 
+      padding-left: max(0.4rem, env(safe-area-inset-left));
+      padding-right: max(0.4rem, env(safe-area-inset-right));
+    }
+  }
+
+  /* ============================================
+     FIN RESPONSIVE MOBILE
+     ============================================ */
+
+</style>
+</head>
+<body>
+
+<header>
+  <h1>MUNDIAL 2026</h1>
+  <p>🇺🇸 Estados Unidos &nbsp;·&nbsp; 🇲🇽 México &nbsp;·&nbsp; 🇨🇦 Canadá &nbsp;·&nbsp; 11 Jun – 19 Jul &nbsp;·&nbsp; Horarios de Argentina</p>
+</header>
+
+
+<div class="leyenda">
+  <span class="leyenda-item"><span class="dot" style="background:#1abc9c"></span> Telefe</span>
+  <span class="leyenda-item"><span class="dot" style="background:#3498db"></span> TV Pública</span>
+  <span class="leyenda-item"><span class="dot" style="background:#e67e22"></span> DSports / DGO</span>
+  <span class="leyenda-item"><span class="dot" style="background:#5dade2"></span> Disney+ Premium (ESPN)</span>
+  <span class="leyenda-item"><span class="dot" style="background:#bb8fce"></span> Paramount+</span>
+  <span class="leyenda-item"><span class="dot" style="background:var(--arg)"></span> Partido Argentina</span>
+</div>
+
+<div class="nav-tabs">
+  <button class="nav-tab activo" onclick="cambiarTab('calendario', this)">📅 Calendario</button>
+  <button class="nav-tab" onclick="cambiarTab('posiciones', this)">📊 Posiciones</button>
+  <button class="nav-tab" onclick="cambiarTab('resultados', this)">🔴 Resultados</button>
+  <button class="nav-tab" onclick="cambiarTab('selecciones', this)">🌍 Selecciones</button>
+</div>
+
+<div class="tab-panel activo" id="tab-calendario">
+<div class="filtros">
+  <div class="filtros-fila">
+    <button class="filtro-btn activo" onclick="filtrar('todo',this)">Todos</button>
+    <button class="filtro-btn" onclick="filtrar('argentina',this)">🇦🇷 Argentina</button>
+    <button class="filtro-btn" onclick="filtrar('gratis',this)">📺 TV Gratuita</button>
+    <button class="filtro-btn" onclick="filtrar('grupos',this)">Fase de Grupos</button>
+    <button class="filtro-btn" onclick="filtrar('eliminacion',this)">Eliminación Directa</button>
+  </div>
+  <div class="filtros-fila filtros-plataformas">
+    <span class="filtros-label">Por canal:</span>
+    <button class="filtro-btn filtro-canal" data-canal="telefe" onclick="filtrarCanal('telefe',this)">📺 Telefe</button>
+    <button class="filtro-btn filtro-canal" data-canal="tvpublica" onclick="filtrarCanal('tvpublica',this)">📺 TV Pública</button>
+    <button class="filtro-btn filtro-canal" data-canal="dsports" onclick="filtrarCanal('dsports',this)">🟠 DSports/DGO</button>
+    <button class="filtro-btn filtro-canal" data-canal="disney" onclick="filtrarCanal('disney',this)">🔵 Disney+/ESPN</button>
+    <button class="filtro-btn filtro-canal" data-canal="paramount" onclick="filtrarCanal('paramount',this)">🟣 Paramount+</button>
+  </div>
+  <div class="buscador-wrap">
+    <div class="buscador-box">
+      <span class="buscador-icon">&#128269;</span>
+      <input
+        class="buscador-input"
+        id="buscadorInput"
+        type="text"
+        placeholder="Buscar pais... ej: Francia, Brasil, Argentina"
+        oninput="buscarPais(this.value)"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button class="buscador-clear" id="buscadorClear" onclick="limpiarBuscador()" title="Limpiar">&#215;</button>
+    </div>
+    <div class="buscador-resultado" id="buscadorResultado"></div>
+  </div>
+</div>
+
+<div class="contenido" id="contenido">
+
+<!-- ======================== FASE DE GRUPOS ======================== -->
+<div class="fase-titulo">⚽ FASE DE GRUPOS</div>
+
+<!-- JUEVES 11 JUN -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Jueves</span>
+    <span class="dia-fecha">11 de junio</span>
+    <span class="dia-count">2 partidos</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P1</div><div class="zona">16:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇲🇽 México vs. Sudáfrica 🇿🇦</div>
+      <div class="partido-meta">
+        <span class="grupo-tag">Grupo A</span>
+        <span class="sede-tag">Estadio Azteca · Ciudad de México</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+      <span class="canal-badge c-paramount">Paramount+</span>
+    </div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P2</div><div class="zona">23:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇰🇷 Corea del Sur vs. Rep. Checa 🇨🇿</div>
+      <div class="partido-meta">
+        <span class="grupo-tag">Grupo A</span>
+        <span class="sede-tag">Estadio Guadalajara</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+      <span class="canal-badge c-paramount">Paramount+</span>
+    </div>
+  </div>
+</div>
+
+<!-- VIERNES 12 JUN -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Viernes</span>
+    <span class="dia-fecha">12 de junio</span>
+    <span class="dia-count">2 partidos</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P3</div><div class="zona">16:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇨🇦 Canadá vs. Bosnia 🇧🇦</div>
+      <div class="partido-meta">
+        <span class="grupo-tag">Grupo B</span>
+        <span class="sede-tag">Toronto Stadium</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+      <span class="canal-badge c-paramount">Paramount+</span>
+    </div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P4</div><div class="zona">22:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇺🇸 Estados Unidos vs. Paraguay 🇵🇾</div>
+      <div class="partido-meta">
+        <span class="grupo-tag">Grupo D</span>
+        <span class="sede-tag">Los Angeles Stadium</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+      <span class="canal-badge c-paramount">Paramount+</span>
+    </div>
+  </div>
+</div>
+
+<!-- SÁBADO 13 JUN -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Sábado</span>
+    <span class="dia-fecha">13 de junio</span>
+    <span class="dia-count">4 partidos</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P5</div><div class="zona">16:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇶🇦 Qatar vs. Suiza 🇨🇭</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo B</span><span class="sede-tag">San Francisco Bay Area Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P6</div><div class="zona">19:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇧🇷 Brasil vs. Marruecos 🇲🇦</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo C</span><span class="sede-tag">Nueva York / Nueva Jersey Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-telefe">Telefe</span><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P7</div><div class="zona">22:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇭🇹 Haití vs. Escocia 🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo C</span><span class="sede-tag">Boston Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P8</div><div class="zona">01:00 · Dom 14/6</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇦🇺 Australia vs. Turquía 🇹🇷</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo D</span><span class="sede-tag">BC Place · Vancouver</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- DOMINGO 14 JUN -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Domingo</span>
+    <span class="dia-fecha">14 de junio</span>
+    <span class="dia-count">4 partidos</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P9</div><div class="zona">14:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇩🇪 Alemania vs. Curazao 🇨🇼</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo E</span><span class="sede-tag">Houston Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P10</div><div class="zona">17:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇳🇱 Países Bajos vs. Japón 🇯🇵</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo F</span><span class="sede-tag">Dallas Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-telefe">Telefe</span><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P11</div><div class="zona">20:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇨🇮 Costa de Marfil vs. Ecuador 🇪🇨</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo E</span><span class="sede-tag">Philadelphia Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-telefe">Telefe</span><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P12</div><div class="zona">23:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇸🇪 Suecia vs. Túnez 🇹🇳</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo F</span><span class="sede-tag">Estadio Monterrey</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- LUNES 15 JUN -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Lunes</span>
+    <span class="dia-fecha">15 de junio</span>
+    <span class="dia-count">4 partidos</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P13</div><div class="zona">13:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇪🇸 España vs. Cabo Verde 🇨🇻</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo H</span><span class="sede-tag">Atlanta Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P14</div><div class="zona">16:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇧🇪 Bélgica vs. Egipto 🇪🇬</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo G</span><span class="sede-tag">Seattle Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P15</div><div class="zona">19:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇸🇦 Arabia Saudita vs. Uruguay 🇺🇾</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo H</span><span class="sede-tag">Miami Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-telefe">Telefe</span><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P16</div><div class="zona">22:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇮🇷 Irán vs. Nueva Zelanda 🇳🇿</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo G</span><span class="sede-tag">Los Angeles Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- MARTES 16 JUN – ARGENTINA DEBUTA -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Martes</span>
+    <span class="dia-fecha">16 de junio</span>
+    <span class="dia-count">4 partidos · 🇦🇷 DEBUT ARGENTINA</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P17</div><div class="zona">16:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇫🇷 Francia vs. Senegal 🇸🇳</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo I</span><span class="sede-tag">Nueva York / Nueva Jersey Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P18</div><div class="zona">19:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇮🇶 Irak vs. Noruega 🇳🇴</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo I</span><span class="sede-tag">Boston Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido arg-match" data-arg="si" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P19</div><div class="zona">22:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos"><span class="arg-name">🇦🇷 ARGENTINA</span> vs. Argelia 🇩🇿</div>
+      <div class="partido-meta">
+        <span class="grupo-tag">Grupo J</span>
+        <span class="arg-badge">🇦🇷 ARG</span>
+        <span class="sede-tag">GEHA Field · Kansas City</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-tvpublica">TV Pública</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+      <span class="canal-badge c-disney">Disney+ (ESPN)</span>
+      <span class="canal-badge c-paramount">Paramount+</span>
+    </div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P20</div><div class="zona">01:00 · Mié 17/6</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇦🇹 Austria vs. Jordania 🇯🇴</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo J</span><span class="sede-tag">Levi's Stadium · San Francisco</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- MIÉRCOLES 17 JUN -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Miércoles</span>
+    <span class="dia-fecha">17 de junio</span>
+    <span class="dia-count">4 partidos</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P21</div><div class="zona">14:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇵🇹 Portugal vs. Rep. D. Congo 🇨🇩</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo K</span><span class="sede-tag">Houston Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-telefe">Telefe</span><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P22</div><div class="zona">17:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra vs. Croacia 🇭🇷</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo L</span><span class="sede-tag">Dallas Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P23</div><div class="zona">20:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇬🇭 Ghana vs. Panamá 🇵🇦</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo L</span><span class="sede-tag">Toronto Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P24</div><div class="zona">23:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇺🇿 Uzbekistán vs. Colombia 🇨🇴</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo K</span><span class="sede-tag">Estadio Ciudad de México</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- JUEVES 18 JUN -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Jueves</span>
+    <span class="dia-fecha">18 de junio</span>
+    <span class="dia-count">4 partidos</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P25</div><div class="zona">13:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇨🇿 Rep. Checa vs. Sudáfrica 🇿🇦</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo A</span><span class="sede-tag">Atlanta Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P26</div><div class="zona">16:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇨🇭 Suiza vs. Bosnia 🇧🇦</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo B</span><span class="sede-tag">Los Angeles Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P27</div><div class="zona">19:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇨🇦 Canadá vs. Qatar 🇶🇦</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo B</span><span class="sede-tag">BC Place · Vancouver</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P28</div><div class="zona">22:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇲🇽 México vs. Corea del Sur 🇰🇷</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo A</span><span class="sede-tag">Estadio Guadalajara</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- VIERNES 19 JUN -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Viernes</span>
+    <span class="dia-fecha">19 de junio</span>
+    <span class="dia-count">4 partidos</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P29</div><div class="zona">16:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇺🇸 Estados Unidos vs. Australia 🇦🇺</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo D</span><span class="sede-tag">Seattle Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P30</div><div class="zona">19:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia vs. Marruecos 🇲🇦</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo C</span><span class="sede-tag">Boston Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P31</div><div class="zona">22:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇧🇷 Brasil vs. Haití 🇭🇹</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo C</span><span class="sede-tag">Philadelphia Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-telefe">Telefe</span><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P32</div><div class="zona">01:00 · Sáb 20/6</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇹🇷 Turquía vs. Paraguay 🇵🇾</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo D</span><span class="sede-tag">San Francisco Bay Area Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- SÁBADO 20 JUN -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Sábado</span>
+    <span class="dia-fecha">20 de junio</span>
+    <span class="dia-count">4 partidos</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P33</div><div class="zona">14:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇳🇱 Países Bajos vs. Suecia 🇸🇪</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo F</span><span class="sede-tag">Houston Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-telefe">Telefe</span><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P34</div><div class="zona">17:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇩🇪 Alemania vs. Costa de Marfil 🇨🇮</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo E</span><span class="sede-tag">Toronto Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P35</div><div class="zona">21:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇪🇨 Ecuador vs. Curazao 🇨🇼</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo E</span><span class="sede-tag">Kansas City Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P36</div><div class="zona">01:00 · Dom 21/6</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇹🇳 Túnez vs. Japón 🇯🇵</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo F</span><span class="sede-tag">Estadio Monterrey</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- DOMINGO 21 JUN -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Domingo</span>
+    <span class="dia-fecha">21 de junio</span>
+    <span class="dia-count">4 partidos</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P37</div><div class="zona">13:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇪🇸 España vs. Arabia Saudita 🇸🇦</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo H</span><span class="sede-tag">Atlanta Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-telefe">Telefe</span><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P38</div><div class="zona">16:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇧🇪 Bélgica vs. Irán 🇮🇷</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo G</span><span class="sede-tag">Los Angeles Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P39</div><div class="zona">19:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇺🇾 Uruguay vs. Cabo Verde 🇨🇻</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo H</span><span class="sede-tag">Miami Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P40</div><div class="zona">22:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇳🇿 Nueva Zelanda vs. Egipto 🇪🇬</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo G</span><span class="sede-tag">BC Place · Vancouver</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- LUNES 22 JUN – ARGENTINA -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Lunes</span>
+    <span class="dia-fecha">22 de junio</span>
+    <span class="dia-count">4 partidos · 🇦🇷 ARGENTINA</span>
+  </div>
+  <div class="partido arg-match" data-arg="si" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P41</div><div class="zona">14:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos"><span class="arg-name">🇦🇷 ARGENTINA</span> vs. Austria 🇦🇹</div>
+      <div class="partido-meta">
+        <span class="grupo-tag">Grupo J</span>
+        <span class="arg-badge">🇦🇷 ARG</span>
+        <span class="sede-tag">AT&T Stadium · Dallas</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-tvpublica">TV Pública</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+      <span class="canal-badge c-disney">Disney+ (ESPN)</span>
+      <span class="canal-badge c-paramount">Paramount+</span>
+    </div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P42</div><div class="zona">18:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇫🇷 Francia vs. Irak 🇮🇶</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo I</span><span class="sede-tag">Philadelphia Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P43</div><div class="zona">21:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇳🇴 Noruega vs. Senegal 🇸🇳</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo I</span><span class="sede-tag">Nueva York / Nueva Jersey Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P44</div><div class="zona">00:00 · Mar 23/6</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇯🇴 Jordania vs. Argelia 🇩🇿</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo J</span><span class="sede-tag">Levi's Stadium · San Francisco</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- MARTES 23 JUN -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Martes</span>
+    <span class="dia-fecha">23 de junio</span>
+    <span class="dia-count">4 partidos</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P45</div><div class="zona">14:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇵🇹 Portugal vs. Uzbekistán 🇺🇿</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo K</span><span class="sede-tag">Houston Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-telefe">Telefe</span><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P46</div><div class="zona">17:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra vs. Ghana 🇬🇭</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo L</span><span class="sede-tag">Boston Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-telefe">Telefe</span><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P47</div><div class="zona">20:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇵🇦 Panamá vs. Croacia 🇭🇷</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo L</span><span class="sede-tag">Toronto Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P48</div><div class="zona">23:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇨🇴 Colombia vs. Rep. D. Congo 🇨🇩</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo K</span><span class="sede-tag">Estadio Guadalajara</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- MIÉRCOLES 24 JUN -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Miércoles</span>
+    <span class="dia-fecha">24 de junio</span>
+    <span class="dia-count">6 partidos (simultáneos)</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P49</div><div class="zona">16:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇨🇭 Suiza vs. Canadá 🇨🇦</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo B</span><span class="sede-tag">BC Place · Vancouver</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P50</div><div class="zona">16:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇧🇦 Bosnia vs. Qatar 🇶🇦</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo B</span><span class="sede-tag">Seattle Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P51</div><div class="zona">19:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia vs. Brasil 🇧🇷</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo C</span><span class="sede-tag">Miami Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-telefe">Telefe</span><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P52</div><div class="zona">19:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇲🇦 Marruecos vs. Haití 🇭🇹</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo C</span><span class="sede-tag">Atlanta Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P53</div><div class="zona">22:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇨🇿 Rep. Checa vs. México 🇲🇽</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo A</span><span class="sede-tag">Estadio Ciudad de México</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P54</div><div class="zona">22:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇿🇦 Sudáfrica vs. Corea del Sur 🇰🇷</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo A</span><span class="sede-tag">Estadio Monterrey</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- JUEVES 25 JUN -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Jueves</span>
+    <span class="dia-fecha">25 de junio</span>
+    <span class="dia-count">6 partidos (simultáneos)</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P55</div><div class="zona">17:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇪🇨 Ecuador vs. Alemania 🇩🇪</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo E</span><span class="sede-tag">Nueva York / Nueva Jersey Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-telefe">Telefe</span><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P56</div><div class="zona">17:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇨🇼 Curazao vs. Costa de Marfil 🇨🇮</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo E</span><span class="sede-tag">Philadelphia Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P57</div><div class="zona">20:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇹🇳 Túnez vs. Países Bajos 🇳🇱</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo F</span><span class="sede-tag">Kansas City Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P58</div><div class="zona">20:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇯🇵 Japón vs. Suecia 🇸🇪</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo F</span><span class="sede-tag">Dallas Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P59</div><div class="zona">23:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇹🇷 Turquía vs. Estados Unidos 🇺🇸</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo D</span><span class="sede-tag">Los Angeles Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P60</div><div class="zona">23:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇵🇾 Paraguay vs. Australia 🇦🇺</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo D</span><span class="sede-tag">San Francisco Bay Area Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- VIERNES 26 JUN -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Viernes</span>
+    <span class="dia-fecha">26 de junio</span>
+    <span class="dia-count">6 partidos (simultáneos)</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P61</div><div class="zona">16:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇳🇴 Noruega vs. Francia 🇫🇷</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo I</span><span class="sede-tag">Boston Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-telefe">Telefe</span><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P62</div><div class="zona">16:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇸🇳 Senegal vs. Irak 🇮🇶</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo I</span><span class="sede-tag">Toronto Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P63</div><div class="zona">21:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇺🇾 Uruguay vs. España 🇪🇸</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo H</span><span class="sede-tag">Estadio Guadalajara</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-telefe">Telefe</span><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P64</div><div class="zona">21:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇨🇻 Cabo Verde vs. Arabia Saudita 🇸🇦</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo H</span><span class="sede-tag">Houston Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P65</div><div class="zona">00:00 · Sáb 27/6</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇳🇿 Nueva Zelanda vs. Bélgica 🇧🇪</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo G</span><span class="sede-tag">BC Place · Vancouver</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P66</div><div class="zona">00:00 · Sáb 27/6</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇪🇬 Egipto vs. Irán 🇮🇷</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo G</span><span class="sede-tag">Seattle Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- SÁBADO 27 JUN – ARGENTINA GRUPO -->
+<div class="dia-bloque" data-fase="grupos">
+  <div class="dia-header">
+    <span class="dia-nombre">Sábado</span>
+    <span class="dia-fecha">27 de junio</span>
+    <span class="dia-count">6 partidos · 🇦🇷 ARGENTINA (Grupo J)</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P67</div><div class="zona">18:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇵🇦 Panamá vs. Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo L</span><span class="sede-tag">Nueva York / Nueva Jersey Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P68</div><div class="zona">18:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇭🇷 Croacia vs. Ghana 🇬🇭</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo L</span><span class="sede-tag">Philadelphia Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P69</div><div class="zona">20:30 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇨🇴 Colombia vs. Portugal 🇵🇹</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo K</span><span class="sede-tag">Miami Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P70</div><div class="zona">20:30 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇨🇩 Rep. D. Congo vs. Uzbekistán 🇺🇿</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo K</span><span class="sede-tag">Atlanta Stadium</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+  <div class="partido arg-match" data-arg="si" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P71</div><div class="zona">23:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇯🇴 Jordania vs. <span class="arg-name">🇦🇷 ARGENTINA</span></div>
+      <div class="partido-meta">
+        <span class="grupo-tag">Grupo J</span>
+        <span class="arg-badge">🇦🇷 ARG</span>
+        <span class="sede-tag">AT&T Stadium · Dallas</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-tvpublica">TV Pública</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+      <span class="canal-badge c-disney">Disney+ (ESPN)</span>
+      <span class="canal-badge c-paramount">Paramount+</span>
+    </div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P72</div><div class="zona">23:00 · ARG</div></div>
+    <div class="partido-info">
+      <div class="equipos">🇩🇿 Argelia vs. Austria 🇦🇹</div>
+      <div class="partido-meta"><span class="grupo-tag">Grupo J</span><span class="sede-tag">Arrowhead Stadium · Kansas</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span><span class="canal-badge c-paramount">Paramount+</span></div>
+  </div>
+</div>
+
+<!-- ======================== ELIMINACIÓN DIRECTA ======================== -->
+<div class="fase-titulo">🏆 16AVOS DE FINAL</div>
+
+<!-- DOM 28 JUN -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Domingo</span>
+    <span class="dia-fecha">28 de junio</span>
+    <span class="dia-count">Partido 73</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P73</div><div class="zona">16:00 · Dom 28/6</div></div>
+    <div class="partido-info">
+      <div class="equipos">2º Grupo A vs. 2º Grupo B</div>
+      <div class="partido-meta"><span class="sede-tag">SoFi Stadium · Inglewood</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+</div>
+
+<!-- LUN 29 JUN -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Lunes</span>
+    <span class="dia-fecha">29 de junio</span>
+    <span class="dia-count">Partidos 74 · 75 · 76</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P74</div><div class="zona">14:00 · Lun 29/6</div></div>
+    <div class="partido-info">
+      <div class="equipos">1º Grupo E vs. 3º Grupo A/B/C/D/F</div>
+      <div class="partido-meta"><span class="sede-tag">Gillette Stadium · Foxborough</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P75</div><div class="zona">17:30 · Lun 29/6</div></div>
+    <div class="partido-info">
+      <div class="equipos">1º Grupo F vs. 2º Grupo C</div>
+      <div class="partido-meta"><span class="sede-tag">Estadio BBVA · Guadalupe</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P76</div><div class="zona">22:00 · Lun 29/6</div></div>
+    <div class="partido-info">
+      <div class="equipos">1º Grupo C vs. 2º Grupo F</div>
+      <div class="partido-meta"><span class="sede-tag">NRG Stadium · Houston</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+</div>
+
+<!-- MAR 30 JUN -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Martes</span>
+    <span class="dia-fecha">30 de junio</span>
+    <span class="dia-count">Partidos 77 · 78 · 79</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P77</div><div class="zona">14:00 · Mar 30/6</div></div>
+    <div class="partido-info">
+      <div class="equipos">1º Grupo I vs. 3º Grupo C/D/F/G/H</div>
+      <div class="partido-meta"><span class="sede-tag">MetLife Stadium · East Rutherford</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P78</div><div class="zona">18:00 · Mar 30/6</div></div>
+    <div class="partido-info">
+      <div class="equipos">2º Grupo E vs. 2º Grupo I</div>
+      <div class="partido-meta"><span class="sede-tag">AT&T Stadium · Arlington</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P79</div><div class="zona">22:00 · Mar 30/6</div></div>
+    <div class="partido-info">
+      <div class="equipos">1º Grupo A vs. 3º Grupo C/E/F/H/I</div>
+      <div class="partido-meta"><span class="sede-tag">Estadio Banorte · Ciudad de México</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+</div>
+
+<!-- MIÉ 1 JUL -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Miércoles</span>
+    <span class="dia-fecha">1 de julio</span>
+    <span class="dia-count">Partidos 80 · 81 · 82</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P80</div><div class="zona">13:00 · Mié 1/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">1º Grupo L vs. 3º Grupo E/H/I/J/K</div>
+      <div class="partido-meta"><span class="sede-tag">Mercedes-Benz Stadium · Atlanta</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P81</div><div class="zona">17:00 · Mié 1/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">1º Grupo D vs. 3º Grupo B/E/F/I/J</div>
+      <div class="partido-meta"><span class="sede-tag">Levi's Stadium · Santa Clara</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P82</div><div class="zona">21:00 · Mié 1/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">1º Grupo G vs. 3º Grupo A/E/H/I/J</div>
+      <div class="partido-meta"><span class="sede-tag">Lumen Field · Seattle</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+</div>
+
+<!-- JUE 2 JUL -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Jueves</span>
+    <span class="dia-fecha">2 de julio</span>
+    <span class="dia-count">Partidos 83 · 84 · 85</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P83</div><div class="zona">14:00 · Jue 2/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">2º Grupo K vs. 2º Grupo L</div>
+      <div class="partido-meta"><span class="sede-tag">BMO Field · Toronto</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+  <div class="partido" data-arg="si" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P84</div><div class="zona">18:00 · Jue 2/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">1º Grupo H vs. <span class="arg-name">2º Grupo J 🇦🇷</span></div>
+      <div class="partido-meta">
+        <span class="arg-badge">🇦🇷 posible (si 2º)</span>
+        <span class="sede-tag">SoFi Stadium · Inglewood</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-tvpublica">TV Pública</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+      <span class="canal-badge c-disney">Disney+ (ESPN)</span>
+    </div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P85</div><div class="zona">22:00 · Jue 2/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">1º Grupo B vs. 3º Grupo E/F/G/I/J</div>
+      <div class="partido-meta"><span class="sede-tag">BC Place · Vancouver</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+</div>
+
+<!-- VIE 3 JUL -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Viernes</span>
+    <span class="dia-fecha">3 de julio</span>
+    <span class="dia-count">Partidos 86 · 87 · 88</span>
+  </div>
+  <div class="partido" data-arg="si" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P86</div><div class="zona">14:00 · Vie 3/7</div></div>
+    <div class="partido-info">
+      <div class="equipos"><span class="arg-name">1º Grupo J 🇦🇷</span> vs. 2º Grupo H</div>
+      <div class="partido-meta">
+        <span class="arg-badge">🇦🇷 posible (si 1º)</span>
+        <span class="sede-tag">Hard Rock Stadium · Miami Gardens</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-tvpublica">TV Pública</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+      <span class="canal-badge c-disney">Disney+ (ESPN)</span>
+    </div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P87</div><div class="zona">18:00 · Vie 3/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">1º Grupo K vs. 3º Grupo D/E/I/J/L</div>
+      <div class="partido-meta"><span class="sede-tag">GEHA Field · Kansas City</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P88</div><div class="zona">22:00 · Vie 3/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">2º Grupo D vs. 2º Grupo G</div>
+      <div class="partido-meta"><span class="sede-tag">AT&T Stadium · Arlington</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+</div>
+
+<!-- ======================== OCTAVOS ======================== -->
+<div class="fase-titulo">⚽ OCTAVOS DE FINAL</div>
+
+<!-- SAB 4 JUL -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Sábado</span>
+    <span class="dia-fecha">4 de julio</span>
+    <span class="dia-count">Partidos 89 · 90</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P89</div><div class="zona">14:00 · Sáb 4/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">Gan. P74 vs. Gan. P77</div>
+      <div class="partido-meta"><span class="sede-tag">Lincoln Financial Field · Philadelphia</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P90</div><div class="zona">18:00 · Sáb 4/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">Gan. P73 vs. Gan. P75</div>
+      <div class="partido-meta"><span class="sede-tag">NRG Stadium · Houston</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+</div>
+
+<!-- DOM 5 JUL -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Domingo</span>
+    <span class="dia-fecha">5 de julio</span>
+    <span class="dia-count">Partidos 91 · 92</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P91</div><div class="zona">17:00 · Dom 5/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">Gan. P76 vs. Gan. P78</div>
+      <div class="partido-meta"><span class="sede-tag">MetLife Stadium · East Rutherford</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P92</div><div class="zona">21:00 · Dom 5/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">Gan. P79 vs. Gan. P80</div>
+      <div class="partido-meta"><span class="sede-tag">Estadio Banorte · Ciudad de México</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+</div>
+
+<!-- LUN 6 JUL -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Lunes</span>
+    <span class="dia-fecha">6 de julio</span>
+    <span class="dia-count">Partidos 93 · 94</span>
+  </div>
+  <div class="partido" data-arg="si" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P93</div><div class="zona">17:00 · Lun 6/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">Gan. P83 vs. Gan. P84 <span style="font-size:0.7rem;color:var(--arg)">(🇦🇷 posible)</span></div>
+      <div class="partido-meta">
+        <span class="arg-badge">🇦🇷 posible</span>
+        <span class="sede-tag">AT&T Stadium · Arlington</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-tvpublica">TV Pública</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+    </div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P94</div><div class="zona">21:00 · Lun 6/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">Gan. P81 vs. Gan. P82</div>
+      <div class="partido-meta"><span class="sede-tag">Lumen Field · Seattle</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+</div>
+
+<!-- MAR 7 JUL -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Martes</span>
+    <span class="dia-fecha">7 de julio</span>
+    <span class="dia-count">Partidos 95 · 96</span>
+  </div>
+  <div class="partido" data-arg="si" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P95</div><div class="zona">13:00 · Mar 7/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">Gan. P86 vs. Gan. P88 <span style="font-size:0.7rem;color:var(--arg)">(🇦🇷 posible)</span></div>
+      <div class="partido-meta">
+        <span class="arg-badge">🇦🇷 posible</span>
+        <span class="sede-tag">Mercedes-Benz Stadium · Atlanta</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-tvpublica">TV Pública</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+    </div>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P96</div><div class="zona">17:00 · Mar 7/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">Gan. P85 vs. Gan. P87</div>
+      <div class="partido-meta"><span class="sede-tag">BC Place · Vancouver</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+</div>
+
+<!-- ======================== CUARTOS ======================== -->
+<div class="fase-titulo">🔥 CUARTOS DE FINAL</div>
+
+<!-- JUE 9 JUL -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Jueves</span>
+    <span class="dia-fecha">9 de julio</span>
+    <span class="dia-count">Partido 97</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P97</div><div class="zona">21:00 · Jue 9/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">Gan. P89 vs. Gan. P90</div>
+      <div class="partido-meta"><span class="sede-tag">Gillette Stadium · Foxborough</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+</div>
+
+<!-- VIE 10 JUL -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Viernes</span>
+    <span class="dia-fecha">10 de julio</span>
+    <span class="dia-count">Partido 98</span>
+  </div>
+  <div class="partido" data-arg="si" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P98</div><div class="zona">21:00 · Vie 10/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">Gan. P93 vs. Gan. P94 <span style="font-size:0.7rem;color:var(--arg)">(🇦🇷 posible)</span></div>
+      <div class="partido-meta">
+        <span class="arg-badge">🇦🇷 posible</span>
+        <span class="sede-tag">SoFi Stadium · Inglewood</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-tvpublica">TV Pública</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+    </div>
+  </div>
+</div>
+
+<!-- SAB 11 JUL -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Sábado</span>
+    <span class="dia-fecha">11 de julio</span>
+    <span class="dia-count">Partidos 99 · 100</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="no">
+    <div class="partido-hora"><div class="hora">P99</div><div class="zona">17:00 · Sáb 11/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">Gan. P91 vs. Gan. P92</div>
+      <div class="partido-meta"><span class="sede-tag">Hard Rock Stadium · Miami Gardens</span></div>
+    </div>
+    <div class="canales"><span class="canal-badge c-dsports">DSports/DGO</span></div>
+  </div>
+  <div class="partido" data-arg="si" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P100</div><div class="zona">21:00 · Sáb 11/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">Gan. P95 vs. Gan. P96 <span style="font-size:0.7rem;color:var(--arg)">(🇦🇷 posible)</span></div>
+      <div class="partido-meta">
+        <span class="arg-badge">🇦🇷 posible</span>
+        <span class="sede-tag">Arrowhead Stadium · Kansas City</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-tvpublica">TV Pública</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== SEMIFINALES ======================== -->
+<div class="fase-titulo">⚡ SEMIFINALES</div>
+
+<!-- MAR 14 JUL -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Martes</span>
+    <span class="dia-fecha">14 de julio</span>
+    <span class="dia-count">Partido 101 · Semifinal</span>
+  </div>
+  <div class="partido" data-arg="si" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P101</div><div class="zona">21:00 · Mar 14/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">Gan. P97 vs. Gan. P98 <span style="font-size:0.7rem;color:var(--arg)">(🇦🇷 posible)</span></div>
+      <div class="partido-meta">
+        <span class="arg-badge">🇦🇷 posible</span>
+        <span class="sede-tag">AT&T Stadium · Arlington</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-tvpublica">TV Pública</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+      <span class="canal-badge c-disney">Disney+ (ESPN)</span>
+    </div>
+  </div>
+</div>
+
+<!-- MIÉ 15 JUL -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Miércoles</span>
+    <span class="dia-fecha">15 de julio</span>
+    <span class="dia-count">Partido 102 · Semifinal</span>
+  </div>
+  <div class="partido" data-arg="si" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P102</div><div class="zona">21:00 · Mié 15/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">Gan. P99 vs. Gan. P100 <span style="font-size:0.7rem;color:var(--arg)">(🇦🇷 posible)</span></div>
+      <div class="partido-meta">
+        <span class="arg-badge">🇦🇷 posible</span>
+        <span class="sede-tag">Mercedes-Benz Stadium · Atlanta</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-tvpublica">TV Pública</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+      <span class="canal-badge c-disney">Disney+ (ESPN)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== 3er PUESTO + FINAL ======================== -->
+<div class="fase-titulo">🥇 FINAL</div>
+
+<!-- SAB 18 JUL -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Sábado</span>
+    <span class="dia-fecha">18 de julio</span>
+    <span class="dia-count">Partido 103 · 3er y 4to Puesto</span>
+  </div>
+  <div class="partido" data-arg="no" data-gratis="si">
+    <div class="partido-hora"><div class="hora">P103</div><div class="zona">17:00 · Sáb 18/7</div></div>
+    <div class="partido-info">
+      <div class="equipos">🥉 Perdedor P101 vs. Perdedor P102</div>
+      <div class="partido-meta"><span class="sede-tag">Hard Rock Stadium · Miami Gardens</span></div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-tvpublica">TV Pública</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+    </div>
+  </div>
+</div>
+
+<!-- DOM 19 JUL – FINAL -->
+<div class="dia-bloque" data-fase="eliminacion">
+  <div class="dia-header">
+    <span class="dia-nombre">Domingo</span>
+    <span class="dia-fecha">19 de julio</span>
+    <span class="dia-count">🏆 GRAN FINAL · Partido 104</span>
+  </div>
+  <div class="partido arg-match" data-arg="si" data-gratis="si">
+    <div class="partido-hora"><div class="hora">16:00</div><div class="zona">Dom 19/7</div></div>
+    <div class="partido-info">
+      <div class="equipos"><span class="arg-name">🏆 FINAL – Gan. P101 vs. Gan. P102</span></div>
+      <div class="partido-meta">
+        <span class="arg-badge">¡Vamos Argentina!</span>
+        <span class="sede-tag">MetLife Stadium · East Rutherford, Nueva York</span>
+      </div>
+    </div>
+    <div class="canales">
+      <span class="canal-badge c-telefe">Telefe</span>
+      <span class="canal-badge c-tvpublica">TV Pública</span>
+      <span class="canal-badge c-dsports">DSports/DGO</span>
+      <span class="canal-badge c-disney">Disney+ (ESPN)</span>
+      <span class="canal-badge c-paramount">Paramount+</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /contenido -->
+
+<script>
+function filtrar(tipo, btn) {
+  document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('activo'));
+  btn.classList.add('activo');
+
+  const partidos = document.querySelectorAll('.partido');
+  const bloques = document.querySelectorAll('.dia-bloque');
+
+  partidos.forEach(p => {
+    let mostrar = true;
+    if (tipo === 'argentina') mostrar = p.dataset.arg === 'si';
+    else if (tipo === 'gratis') mostrar = p.dataset.gratis === 'si';
+    else if (tipo === 'grupos') mostrar = p.closest('[data-fase="grupos"]') !== null;
+    else if (tipo === 'eliminacion') mostrar = p.closest('[data-fase="eliminacion"]') !== null;
+    p.classList.toggle('oculto', !mostrar);
+  });
+
+  // Ocultar bloques vacíos
+  bloques.forEach(bloque => {
+    const visibles = bloque.querySelectorAll('.partido:not(.oculto)');
+    bloque.classList.toggle('oculto', visibles.length === 0);
+  });
+
+  // Ocultar fase-titulo si no hay nada
+  document.querySelectorAll('.fase-titulo').forEach(t => {
+    let next = t.nextElementSibling;
+    let tieneVisible = false;
+    while(next && !next.classList.contains('fase-titulo')) {
+      if (!next.classList.contains('oculto')) tieneVisible = true;
+      next = next.nextElementSibling;
+    }
+    t.classList.toggle('oculto', !tieneVisible);
+  });
+}
+
+
+
+
+
+// ====== FILTRO POR CANAL ======
+function filtrarCanal(canal, btn) {
+  // Limpiar buscador si estaba activo
+  limpiarBuscador();
+
+  // Toggle: si ya estaba activo, volver a todos
+  var yaActivo = btn.classList.contains('activo');
+
+  // Quitar activo de todos los filtros
+  document.querySelectorAll('.filtro-btn').forEach(function(b) { b.classList.remove('activo'); });
+
+  if (yaActivo) {
+    // Si lo desactivamos, volver a "Todos"
+    var btnTodos = document.querySelector('.filtro-btn:not(.filtro-canal)');
+    if (btnTodos) btnTodos.classList.add('activo');
+    document.querySelectorAll('.partido').forEach(function(p) { p.classList.remove('oculto'); });
+    document.querySelectorAll('.dia-bloque').forEach(function(b) { b.classList.remove('oculto'); });
+    document.querySelectorAll('.fase-titulo').forEach(function(t) { t.classList.remove('oculto'); });
+    return;
+  }
+
+  btn.classList.add('activo');
+
+  // Mapa clase CSS → canal
+  var mapaCanal = {
+    'telefe':    'c-telefe',
+    'tvpublica': 'c-tvpublica',
+    'dsports':   'c-dsports',
+    'disney':    'c-disney',
+    'paramount': 'c-paramount'
+  };
+  var claseCanal = mapaCanal[canal];
+
+  var partidos = document.querySelectorAll('.partido');
+  var bloques  = document.querySelectorAll('.dia-bloque');
+  var fases    = document.querySelectorAll('.fase-titulo');
+
+  partidos.forEach(function(p) {
+    var tieneCanal = p.querySelector('.' + claseCanal) !== null;
+    p.classList.toggle('oculto', !tieneCanal);
+  });
+
+  bloques.forEach(function(bloque) {
+    var visibles = bloque.querySelectorAll('.partido:not(.oculto)');
+    bloque.classList.toggle('oculto', visibles.length === 0);
+  });
+
+  fases.forEach(function(t) {
+    var next = t.nextElementSibling;
+    var tieneVisible = false;
+    while (next && !next.classList.contains('fase-titulo')) {
+      if (!next.classList.contains('oculto')) tieneVisible = true;
+      next = next.nextElementSibling;
+    }
+    t.classList.toggle('oculto', !tieneVisible);
+  });
+}
+// ====== FIN FILTRO POR CANAL ======
+
+// ====== BUSCADOR POR PAIS ======
+var busquedaActiva = '';
+
+function buscarPais(query) {
+  busquedaActiva = query.trim().toLowerCase();
+  var clearBtn = document.getElementById('buscadorClear');
+  var resultado = document.getElementById('buscadorResultado');
+
+  clearBtn.style.display = busquedaActiva ? 'block' : 'none';
+
+  if (!busquedaActiva) {
+    // Restaurar estado anterior del filtro activo
+    limpiarBuscador();
+    return;
+  }
+
+  // Desactivar filtros de botones visualmente (sin cambiar estado real)
+  document.querySelectorAll('.filtro-btn').forEach(function(b) {
+    b.classList.remove('activo');
+  });
+
+  var partidos = document.querySelectorAll('.partido');
+  var bloques  = document.querySelectorAll('.dia-bloque');
+  var fases    = document.querySelectorAll('.fase-titulo');
+  var encontrados = 0;
+
+  partidos.forEach(function(p) {
+    var equiposEl = p.querySelector('.equipos');
+    var texto = equiposEl ? equiposEl.innerText.toLowerCase() : '';
+    var sedeEl = p.querySelector('.sede-tag');
+    var sede = sedeEl ? sedeEl.textContent.toLowerCase() : '';
+    var match = texto.indexOf(busquedaActiva) !== -1;
+
+    p.classList.toggle('oculto', !match);
+
+    // Resaltar match en el texto de equipos
+    if (match && equiposEl) {
+      limpiarResaltado(equiposEl);
+      resaltar(equiposEl, busquedaActiva);
+      encontrados++;
+    } else if (equiposEl) {
+      limpiarResaltado(equiposEl);
+    }
+  });
+
+  // Ocultar bloques vacíos
+  bloques.forEach(function(bloque) {
+    var visibles = bloque.querySelectorAll('.partido:not(.oculto)');
+    bloque.classList.toggle('oculto', visibles.length === 0);
+  });
+
+  // Ocultar fase-titulo sin contenido
+  fases.forEach(function(t) {
+    var next = t.nextElementSibling;
+    var tieneVisible = false;
+    while (next && !next.classList.contains('fase-titulo')) {
+      if (!next.classList.contains('oculto')) tieneVisible = true;
+      next = next.nextElementSibling;
+    }
+    t.classList.toggle('oculto', !tieneVisible);
+  });
+
+  resultado.textContent = encontrados === 0
+    ? 'Sin resultados para "' + query.trim() + '"'
+    : encontrados + ' partido' + (encontrados !== 1 ? 's' : '') + ' encontrado' + (encontrados !== 1 ? 's' : '');
+}
+
+function limpiarBuscador() {
+  busquedaActiva = '';
+  var input = document.getElementById('buscadorInput');
+  var clearBtn = document.getElementById('buscadorClear');
+  var resultado = document.getElementById('buscadorResultado');
+  if (input) input.value = '';
+  if (clearBtn) clearBtn.style.display = 'none';
+  if (resultado) resultado.textContent = '';
+
+  // Limpiar resaltados
+  document.querySelectorAll('.equipos').forEach(function(el) { limpiarResaltado(el); });
+
+  // Volver al filtro "Todos"
+  var btnTodos = document.querySelector('.filtro-btn');
+  if (btnTodos) filtrar('todo', btnTodos);
+}
+
+function resaltar(el, query) {
+  // Resaltar en nodos de texto directos del elemento
+  var nodos = Array.from(el.childNodes);
+  nodos.forEach(function(nodo) {
+    if (nodo.nodeType === 3) { // texto
+      var txt = nodo.textContent;
+      var lower = txt.toLowerCase();
+      var idx = lower.indexOf(query);
+      if (idx !== -1) {
+        var antes = txt.substring(0, idx);
+        var match = txt.substring(idx, idx + query.length);
+        var despues = txt.substring(idx + query.length);
+        var span = document.createElement('span');
+        span.className = 'buscador-highlight';
+        span.textContent = match;
+        var frag = document.createDocumentFragment();
+        frag.appendChild(document.createTextNode(antes));
+        frag.appendChild(span);
+        frag.appendChild(document.createTextNode(despues));
+        el.replaceChild(frag, nodo);
+      }
+    } else if (nodo.nodeType === 1 && !nodo.classList.contains('buscador-highlight')) {
+      resaltar(nodo, query);
+    }
+  });
+}
+
+function limpiarResaltado(el) {
+  var highlights = el.querySelectorAll('.buscador-highlight');
+  highlights.forEach(function(h) {
+    var parent = h.parentNode;
+    parent.replaceChild(document.createTextNode(h.textContent), h);
+    parent.normalize();
+  });
+}
+// ====== FIN BUSCADOR ======
+
+</script>
+
+</div><!-- /tab-calendario -->
+
+<div class="tab-panel" id="tab-posiciones">
+  <div class="pos-container" id="posContainer">
+    <div class="pos-loading"><div class="spinner"></div><div>Cargando posiciones...</div></div>
+  </div>
+</div><!-- /tab-posiciones -->
+
+<div class="tab-panel" id="tab-resultados">
+  <div class="pos-container" id="matchesContainer">
+    <div class="pos-loading"><div class="spinner"></div><div>Cargando partidos...</div></div>
+  </div>
+</div><!-- /tab-resultados -->
+
+<div class="tab-panel" id="tab-selecciones">
+  <div class="sel-container" id="selContainer">
+    <div class="sel-grid" id="selGrid"></div>
+  </div>
+  <!-- Panel detalle selección -->
+  <div class="sel-detalle" id="selDetalle" style="display:none">
+    <div class="sel-detalle-header">
+      <button class="sel-back-btn" onclick="volverSelecciones()">← Volver</button>
+      <div class="sel-detalle-titulo" id="selDetalleTitulo"></div>
+      <div class="sel-detalle-sub" id="selDetalleSub"></div>
+    </div>
+    <div class="sel-detalle-body" id="selDetalleBody">
+      <div class="pos-loading"><div class="spinner"></div><div>Cargando plantel...</div></div>
+    </div>
+  </div>
+</div><!-- /tab-selecciones -->
+
+<!-- ====== MODAL POPUP ====== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <button class="modal-close" id="modalClose">&#215;</button>
+      <div class="modal-partido-num" id="modalNum"></div>
+      <div class="modal-titulo" id="modalTitulo"></div>
+      <div class="modal-info-top">
+        <div class="modal-hora-bloque">
+          <div class="modal-hora-big" id="modalHora"></div>
+          <div class="modal-fecha-big" id="modalFecha">Hora Argentina</div>
+        </div>
+        <div class="modal-sede-bloque">
+          <div class="modal-sede-label">&#127967; Sede</div>
+          <div class="modal-sede-text" id="modalSede"></div>
+        </div>
+        <div class="modal-canales-bloque">
+          <div class="modal-canales-row" id="modalCanales"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// ====== DATOS DE SELECCIONES ======
+const EQUIPOS_DATA = {
+  "argentina": {
+    nombre: "Argentina", bandera: "🇦🇷",
+    clasificacion: "Clasificó como campeón vigente de la CONMEBOL, terminando invicto en las Eliminatorias Sudamericanas con 22 puntos en 18 partidos.",
+    mejorMomento: "Tricampeón mundial: ganó en Argentina 1978, México 1986 y Qatar 2022, donde venció a Francia en una final épica por penales.",
+    curiosidad: "Es el país con más finales mundiales jugadas (6) sin contar a Brasil, y Lionel Messi es el máximo goleador de su historia con más de 100 goles."
+  },
+  "argelia": {
+    nombre: "Argelia", bandera: "🇩🇿",
+    clasificacion: "Clasificó ganando el Grupo F de las Eliminatorias Africanas (CAF), superando a Guinea, Mozambique y Liberia.",
+    mejorMomento: "Su mejor actuación fue en Brasil 2014, donde llegó a los octavos de final antes de caer ante Alemania en el alargue por 2-1.",
+    curiosidad: "Sus 'Zorros del Desierto' son conocidos por jugar un fútbol veloz y técnico, con Riyad Mahrez como su gran estrella histórica."
+  },
+  "austria": {
+    nombre: "Austria", bandera: "🇦🇹",
+    clasificacion: "Clasificó como ganadora del Grupo 3 de la Liga de Naciones europea, superando en el repechaje a Ucrania.",
+    mejorMomento: "Su mejor Mundial fue en Suiza 1954, donde alcanzó el tercer puesto. También llegó a las semis en Francia 1998 bajo conducción de Hans Krankl.",
+    curiosidad: "Austria fue el primer equipo en marcar 5 goles en una final de Copa del Mundo cuando le ganó 5-4 a Suiza en el 'Partido del Milagro de Berna' de 1954."
+  },
+  "jordania": {
+    nombre: "Jordania", bandera: "🇯🇴",
+    clasificacion: "Clasificó por primera vez en su historia al terminar segundo en el Grupo B de las Eliminatorias AFC, detrás de Corea del Sur.",
+    mejorMomento: "Este Mundial 2026 es su debut absoluto en la Copa del Mundo, habiendo llegado históricamente hasta la segunda ronda en las clasificatorias asiáticas.",
+    curiosidad: "El Rey Abdulá II de Jordania es un apasionado del fútbol y asistió personalmente a varios partidos de clasificación para alentar a su selección."
+  },
+  "alemania": {
+    nombre: "Alemania", bandera: "🇩🇪",
+    clasificacion: "Clasificó como primera de su grupo en las Eliminatorias Europeas con pleno de victorias, ganando 8 de 8 partidos.",
+    mejorMomento: "Cuatro veces campeón mundial (1954, 1974, 1990, 2014), con la última consagración en Brasil donde goleó a Argentina 4-0 en semifinales.",
+    curiosidad: "Alemania es el único país que ha ganado el Mundial en tres continentes distintos: Europa (1954, 1974), Américas (1990) y nuevamente Europa (2014 en Brasil)."
+  },
+  "costa de marfil": {
+    nombre: "Costa de Marfil", bandera: "🇨🇮",
+    clasificacion: "Clasificó ganando el Grupo C de las Eliminatorias Africanas (CAF), siendo campeón de la Copa Africana de Naciones 2024.",
+    mejorMomento: "Su mejor actuación fue en Alemania 2006, donde llegó a la fase de grupos con Didier Drogba como gran figura y generó el famoso 'Grupo de la Muerte' junto a Argentina.",
+    curiosidad: "Didier Drogba convenció a los rebeldes de Costa de Marfil de aceptar un alto al fuego durante la guerra civil del país en 2005 con un discurso en el vestuario."
+  },
+  "curazao": {
+    nombre: "Curazao", bandera: "🇨🇼",
+    clasificacion: "Debutante absoluto en Mundiales, clasificó ganando la zona de CONCACAF, superando a México en el repechaje de la Liga de Naciones.",
+    mejorMomento: "Este Mundial 2026 es su primera participación histórica. Juegan con jugadores de origen neerlandés elegibles por vínculos familiares.",
+    curiosidad: "Curazao es una isla de apenas 444 km² en el Caribe y tiene menos de 160.000 habitantes, lo que la convierte en una de las selecciones más pequeñas por población del torneo."
+  },
+  "ecuador": {
+    nombre: "Ecuador", bandera: "🇪🇨",
+    clasificacion: "Clasificó cuarto en las Eliminatorias Sudamericanas CONMEBOL con 26 puntos en 18 partidos, marcando 28 goles.",
+    mejorMomento: "En Alemania 2006 llegó a los octavos de final, su mejor actuación histórica, cayendo ante Inglaterra por 1-0.",
+    curiosidad: "Ecuador fue el primer país sudamericano en marcar un gol en un Mundial en el estadio del equipo local, al anotar en el partido inaugural de Qatar 2022."
+  },
+  "paises bajos": {
+    nombre: "Países Bajos", bandera: "🇳🇱",
+    clasificacion: "Clasificó invicto como primero de su grupo en las Eliminatorias UEFA, con 8 victorias y un empate.",
+    mejorMomento: "Tres finales mundiales sin campeonato (1974, 1978, 2010), pioneros del 'Fútbol Total' con Johan Cruyff como máxima leyenda.",
+    curiosidad: "Los Países Bajos son el único equipo que ha perdido tres finales de Copa del Mundo sin ganar ninguna, siendo el máximo 'subcampeón' histórico del torneo."
+  },
+  "japon": {
+    nombre: "Japón", bandera: "🇯🇵",
+    clasificacion: "Clasificó primero en el Grupo C de las Eliminatorias AFC con 16 puntos en 6 partidos, dominando su zona.",
+    mejorMomento: "En Qatar 2022 eliminó a Alemania y España en fase de grupos, llegando a octavos de final donde cayó ante Croacia en penales.",
+    curiosidad: "Japón es el equipo asiático con más participaciones en Mundiales (8 consecutivas desde 1998) y el único de Asia que ha eliminado a dos campeones mundiales en un mismo torneo."
+  },
+  "suecia": {
+    nombre: "Suecia", bandera: "🇸🇪",
+    clasificacion: "Clasificó ganando el repechaje UEFA, superando a Polonia y Chequia en una llave de playoff.",
+    mejorMomento: "Fue finalista en el Mundial de 1958 (jugado en casa), perdiendo ante Brasil 5-2 en la final. También llegó al tercer puesto en Francia 1994.",
+    curiosidad: "Ibrahimović se retiró de la selección en 2016 diciendo 'el Mundial sin mí no vale la pena verlo', pero volvió en 2021 y estuvo a punto de clasificar a Qatar 2022."
+  },
+  "tunez": {
+    nombre: "Túnez", bandera: "🇹🇳",
+    clasificacion: "Clasificó ganando el Grupo J de las Eliminatorias Africanas (CAF), superando a Guinea Ecuatorial y Malí.",
+    mejorMomento: "En Qatar 2022 eliminó al campeón Francia en la fase de grupos, aunque no avanzó por diferencia de goles. En 1978 fue el primer equipo africano en ganar un partido mundialista.",
+    curiosidad: "Túnez tiene el récord de ser el primer equipo africano en ganar un partido en una Copa del Mundo, al vencer a México 3-1 en Argentina 1978."
+  },
+  "espana": {
+    nombre: "España", bandera: "🇪🇸",
+    clasificacion: "Clasificó primera en su grupo de Eliminatorias UEFA sin perder ningún partido, con ocho victorias en diez encuentros.",
+    mejorMomento: "Campeón del mundo en Sudáfrica 2010, derrotando a Países Bajos en la final con gol de Iniesta en el alargue, en el pico del 'Tiki-taka'.",
+    curiosidad: "Entre 2008 y 2012, España ganó tres torneos consecutivos: Eurocopa 2008, Mundial 2010 y Eurocopa 2012, algo que ningún otro equipo logró en la historia del fútbol."
+  },
+  "arabia saudita": {
+    nombre: "Arabia Saudita", bandera: "🇸🇦",
+    clasificacion: "Clasificó segundo en el Grupo A de las Eliminatorias AFC, detrás de Japón, con 14 puntos en 6 partidos.",
+    mejorMomento: "En Qatar 2022 dio la sorpresa del torneo al vencer a Argentina 2-1 en la fase de grupos, aunque luego quedó eliminada.",
+    curiosidad: "Arabia Saudita ganó la Copa de Asia en 1984, 1988 y 1996, siendo uno de los equipos más exitosos del continente en su época dorada."
+  },
+  "uruguay": {
+    nombre: "Uruguay", bandera: "🇺🇾",
+    clasificacion: "Clasificó quinto en las Eliminatorias CONMEBOL con 24 puntos, clasificando directamente al Mundial sin repechaje.",
+    mejorMomento: "Bicampeón mundial en 1930 (primer Copa del Mundo, jugada en casa) y 1950, con el famoso 'Maracanazo' contra Brasil.",
+    curiosidad: "Uruguay es el país más pequeño por superficie y población en ganar un Mundial y tiene la mayor cantidad de títulos mundiales per cápita de la historia."
+  },
+  "cabo verde": {
+    nombre: "Cabo Verde", bandera: "🇨🇻",
+    clasificacion: "Clasificó por primera vez en su historia, ganando el Grupo I de las Eliminatorias Africanas (CAF) con partidos memorables.",
+    mejorMomento: "Este Mundial 2026 es su debut absoluto. En fútbol continental, alcanzaron los cuartos de final de la Copa Africana de Naciones 2021 y 2023.",
+    curiosidad: "Cabo Verde es un archipiélago de 10 islas volcánicas en el Atlántico, con apenas 500.000 habitantes, y muchos de sus jugadores nacieron en Portugal o en la diáspora africana."
+  },
+  "belgica": {
+    nombre: "Bélgica", bandera: "🇧🇪",
+    clasificacion: "Clasificó primera en su grupo de Eliminatorias UEFA, liderada por su nueva generación tras el ocaso de la 'Generación Dorada'.",
+    mejorMomento: "En Rusia 2018 terminó tercera con su 'Generación Dorada' liderada por De Bruyne, Hazard y Lukaku, su mejor resultado histórico.",
+    curiosidad: "La 'Generación Dorada' belga con Hazard, Lukaku y De Bruyne fue considerada la mejor del mundo por la FIFA en 2018, sin ganar ningún título importante."
+  },
+  "iran": {
+    nombre: "Irán", bandera: "🇮🇷",
+    clasificacion: "Clasificó primero en el Grupo B de las Eliminatorias AFC con 17 puntos en 6 encuentros.",
+    mejorMomento: "En Qatar 2022 llegó a la fase de grupos con momentos históricos, aunque cayó en segunda ronda ante Estados Unidos.",
+    curiosidad: "Irán es el equipo asiático con más Mundiales disputados (6) y su victoria sobre Estados Unidos en Francia 1998 fue considerada uno de los partidos más politizados de la historia."
+  },
+  "nueva zelanda": {
+    nombre: "Nueva Zelanda", bandera: "🇳🇿",
+    clasificacion: "Clasificó ganando el repechaje intercontinental de la OFC, venciendo a la selección de Oceanía y al rival de otra confederación.",
+    mejorMomento: "En Sudáfrica 2010 fue el único equipo invicto del torneo, empatando sus tres partidos de fase de grupos y quedando eliminado por diferencia de goles.",
+    curiosidad: "Nueva Zelanda es más conocida por su potencia en rugby (los famosos All Blacks) que en fútbol, y muchos jugadores de su selección son descendientes de maoríes."
+  },
+  "francia": {
+    nombre: "Francia", bandera: "🇫🇷",
+    clasificacion: "Clasificó primera en su grupo de Eliminatorias UEFA con récord de goles a favor, liderada por Kylian Mbappé.",
+    mejorMomento: "Bicampeón mundial en Francia 1998 (con Zidane) y Rusia 2018, perdiendo la final de Qatar 2022 ante Argentina en penales.",
+    curiosidad: "Francia tiene la plantilla con más valor de mercado del mundo y Kylian Mbappé es el máximo goleador en la historia de las Eliminatorias europeas para un jugador menor de 25 años."
+  },
+  "senegal": {
+    nombre: "Senegal", bandera: "🇸🇳",
+    clasificacion: "Clasificó ganando el Grupo L de las Eliminatorias Africanas (CAF), siendo campeón vigente de la Copa Africana de Naciones.",
+    mejorMomento: "En Corea-Japón 2002 llegó a cuartos de final en su debut mundialista, eliminando al campeón Francia en el grupo, su mejor actuación histórica.",
+    curiosidad: "Sadio Mané rechazó varios meses de sueldo de su club para financiar la construcción de hospitales y escuelas en su aldea natal en Senegal."
+  },
+  "irak": {
+    nombre: "Irak", bandera: "🇮🇶",
+    clasificacion: "Clasificó por primera vez desde 1986 al ganar el repechaje intercontinental AFC, venciendo a Bolivia en el partido de desempate.",
+    mejorMomento: "Su única participación anterior fue en México 1986, donde perdió los tres partidos de fase de grupos. Históricamente fue campeón de Asia en 2007.",
+    curiosidad: "La selección de Irak jugó partidos de local en estadios de países neutrales durante años debido a conflictos armados, siendo una de las selecciones con mayor historia política detrás."
+  },
+  "noruega": {
+    nombre: "Noruega", bandera: "🇳🇴",
+    clasificacion: "Clasificó ganando el Grupo G de las Eliminatorias UEFA, con Erling Haaland como máximo goleador de la clasificación europea.",
+    mejorMomento: "Su mejor Mundial fue Francia 1998, donde llegó a octavos de final eliminando a Brasil en la fase de grupos, su única victoria histórica ante la 'Canarinha'.",
+    curiosidad: "Erling Haaland marcó más de 20 goles en las Eliminatorias, siendo el máximo anotador de la historia de la clasificación UEFA en una sola edición."
+  },
+  "portugal": {
+    nombre: "Portugal", bandera: "🇵🇹",
+    clasificacion: "Clasificó primera en su grupo de Eliminatorias UEFA, con Cristiano Ronaldo como máximo artillero de la campaña.",
+    mejorMomento: "Tercer lugar en Inglaterra 1966 con Eusébio y semifinales en Corea-Japón 2002 y Francia 2022 con Cristiano Ronaldo.",
+    curiosidad: "Cristiano Ronaldo es el máximo goleador de la historia de los Mundiales entre jugadores europeos y el único en marcar en cinco ediciones diferentes del torneo."
+  },
+  "uzbekistan": {
+    nombre: "Uzbekistán", bandera: "🇺🇿",
+    clasificacion: "Clasificó por primera vez en su historia al ganar el Grupo A del repechaje AFC, venciendo a Kirguistán en el partido definitivo.",
+    mejorMomento: "Este es su debut absoluto en un Mundial. En fútbol continental, ganó la Copa de Asia Sub-23 en 2018 y viene de una generación de jugadores formados en academias europeas.",
+    curiosidad: "Uzbekistán independizó su federación de fútbol tras la caída de la URSS en 1991 y tardó 35 años en clasificar al Mundial, logrando el hito con jugadores formados mayormente en Rusia y Corea."
+  },
+  "colombia": {
+    nombre: "Colombia", bandera: "🇨🇴",
+    clasificacion: "Clasificó segunda en las Eliminatorias CONMEBOL con 27 puntos en 18 partidos, siendo uno de los equipos más regulares de la zona.",
+    mejorMomento: "En Brasil 2014 llegó a cuartos de final con James Rodríguez como figura y goleador del torneo, la mejor actuación histórica de la selección.",
+    curiosidad: "James Rodríguez ganó el Botín de Oro en Brasil 2014 marcando 6 goles en 5 partidos, incluyendo el que fue votado como el mejor gol del Mundial con un voleo de zurda."
+  },
+  "rep. d. congo": {
+    nombre: "Rep. D. Congo", bandera: "🇨🇩",
+    clasificacion: "Clasificó ganando el repechaje intercontinental CAF, venciendo al representante de otra confederación en la última instancia.",
+    mejorMomento: "Como Zaire (nombre anterior del país), participó en el Mundial de Alemania 1974, siendo la primera selección del África subsahariana en un Mundial.",
+    curiosidad: "En Alemania 1974, Zaire perdió 9-0 ante Yugoslavia y en el tiro libre que cobraba Brasil, un jugador zairense se adelantó a la barrera y pateó el balón fuera del campo en una escena histórica."
+  },
+  "inglaterra": {
+    nombre: "Inglaterra", bandera: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    clasificacion: "Clasificó primera en su grupo de Eliminatorias UEFA con récord perfecto de victorias.",
+    mejorMomento: "Campeón del mundo en 1966 jugando como local, venciendo a Alemania Occidental 4-2 en la final de Wembley con hat-trick de Geoff Hurst.",
+    curiosidad: "Inglaterra inventó el fútbol pero solo tiene un título mundial. Llevan más de 60 años esperando el segundo, razón por la que sus hinchas cantan 'It's coming home' en cada torneo."
+  },
+  "croacia": {
+    nombre: "Croacia", bandera: "🇭🇷",
+    clasificacion: "Clasificó segunda en su grupo de Eliminatorias UEFA, pasando por el repechaje donde venció a Grecia.",
+    mejorMomento: "Subcampeón mundial en Rusia 2018, cayendo ante Francia 4-2 en la final. También llegó al tercer puesto en su debut mundialista en Francia 1998.",
+    curiosidad: "Croacia con apenas 4 millones de habitantes llegó a dos finales mundiales, siendo el país más pequeño por población en lograr ese hito en la era moderna del fútbol."
+  },
+  "ghana": {
+    nombre: "Ghana", bandera: "🇬🇭",
+    clasificacion: "Clasificó ganando el Grupo H de las Eliminatorias Africanas (CAF), superando a Madagascar y Angola.",
+    mejorMomento: "En Sudáfrica 2010 llegó a cuartos de final, siendo el último equipo africano en alcanzar esa instancia, cayendo ante Uruguay en penales tras la mano de Suárez.",
+    curiosidad: "Luis Suárez bloqueó un gol con la mano sobre la línea en el minuto 120 ante Ghana en 2010. Cuando Gyan falló el penal resultante, Uruguay avanzó y Suárez festejó en el banco, generando polémica histórica."
+  },
+  "panama": {
+    nombre: "Panamá", bandera: "🇵🇦",
+    clasificacion: "Clasificó tercera en la zona CONCACAF, asegurando su lugar tras vencer a Costa Rica en el partido decisivo.",
+    mejorMomento: "Debutó en Mundiales en Rusia 2018, aunque perdió los tres partidos. Su primera victoria mundialista la lograron recién en Qatar 2022 ante Bielorrusia en un amistoso.",
+    curiosidad: "El primer gol de Panamá en un Mundial lo marcó Felipe Baloy a los 93 minutos ante Inglaterra en Rusia 2018, generando una celebración histórica en todo el país."
+  },
+  "brasil": {
+    nombre: "Brasil", bandera: "🇧🇷",
+    clasificacion: "Clasificó primera en las Eliminatorias CONMEBOL con récord de goles y sin perder ningún partido en condición de local.",
+    mejorMomento: "Pentacampeón mundial (1958, 1962, 1970, 1994, 2002), el país con más títulos en la historia de la Copa del Mundo.",
+    curiosidad: "Brasil es el único país que ha participado en todas las ediciones de la Copa del Mundo (22 de 22) y el único pentacampeón de la historia del torneo."
+  },
+  "marruecos": {
+    nombre: "Marruecos", bandera: "🇲🇦",
+    clasificacion: "Clasificó ganando el Grupo B de las Eliminatorias Africanas (CAF), siendo el equipo africano de mayor jerarquía del mundo.",
+    mejorMomento: "En Qatar 2022 llegó a semifinales, siendo el primer equipo africano y árabe en la historia del Mundial en alcanzar esa instancia.",
+    curiosidad: "En Qatar 2022, Marruecos eliminó a España y Portugal en eliminación directa y perdió 2-0 ante Francia en semis, con jugadores que lloraron cantando el himno nacional."
+  },
+  "haiti": {
+    nombre: "Haití", bandera: "🇭🇹",
+    clasificacion: "Clasificó ganando el repechaje de CONCACAF en una campaña histórica, siendo su primera clasificación en décadas.",
+    mejorMomento: "Su única participación anterior fue en Alemania 1974, donde cayó 7-0 ante Italia. Desde entonces tardó más de 50 años en volver a un Mundial.",
+    curiosidad: "Haití fue pionero del fútbol caribeño y tuvo una generación brillante en los años 70. Con uno de los PIB per cápita más bajos del mundo, su clasificación es uno de los mayores logros deportivos de su historia."
+  },
+  "escocia": {
+    nombre: "Escocia", bandera: "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+    clasificacion: "Clasificó segunda en su grupo de Eliminatorias UEFA, pasando por el repechaje donde venció a Ucrania.",
+    mejorMomento: "Escocia fue el primer equipo en participar en un Mundial (1954) junto a otras naciones británicas. Su mejor fase de grupos fue en Francia 1998.",
+    curiosidad: "Escocia tiene el récord de clasificar a nueve Mundiales sin jamás superar la fase de grupos, siendo apodada con afecto 'la selección más consistente en ser eliminada en primera ronda'."
+  },
+  "estados unidos": {
+    nombre: "Estados Unidos", bandera: "🇺🇸",
+    clasificacion: "Como co-anfitrión del torneo, clasificó automáticamente. Terminó segundo en las Eliminatorias CONCACAF como mérito deportivo.",
+    mejorMomento: "Sorprendió en Italia 1990 y llegó a cuartos de final en su propio Mundial de 1994. En Qatar 2022 llegó a octavos de final ante Países Bajos.",
+    curiosidad: "Estados Unidos es la única potencia deportiva mundial que considera al fútbol un deporte menor localmente, pese a tener la liga más rica del mundo (MLS) y millones de jugadores amateur."
+  },
+  "australia": {
+    nombre: "Australia", bandera: "🇦🇺",
+    clasificacion: "Clasificó segunda en el Grupo B de las Eliminatorias AFC, asegurando su lugar tras vencer a Bahrein en el repechaje.",
+    mejorMomento: "En Qatar 2022 llegó a octavos de final eliminando a Dinamarca, su mejor resultado histórico, cayendo ante Argentina 2-1.",
+    curiosidad: "Los 'Socceroos' cambiaron su confederación de OFC a AFC en 2006 para mejorar su nivel competitivo, decisión que les costó perder el dominio de Oceanía pero ganar regularidad mundialista."
+  },
+  "turquia": {
+    nombre: "Turquía", bandera: "🇹🇷",
+    clasificacion: "Clasificó ganando el repechaje UEFA, superando a Montenegro y Hungría en una llave eliminatoria.",
+    mejorMomento: "En Corea-Japón 2002 llegó al tercer puesto con Hakan Şükür, quien marcó el gol más rápido en la historia de los Mundiales: 11 segundos ante Corea del Sur.",
+    curiosidad: "El gol de Hakan Şükür a los 11 segundos en el partido por el tercer puesto de 2002 es el más rápido jamás marcado en una Copa del Mundo."
+  },
+  "paraguay": {
+    nombre: "Paraguay", bandera: "🇵🇾",
+    clasificacion: "Clasificó sexto en las Eliminatorias CONMEBOL con 22 puntos en 18 partidos, en un repechaje final contra un rival de Asia.",
+    mejorMomento: "En Sudáfrica 2010 llegó a cuartos de final, su mejor resultado histórico, cayendo ante España 1-0 con un polémico penal fallado.",
+    curiosidad: "Paraguay tiene el récord de ser el equipo que más penales ha atajado en la historia de los Mundiales, con su arquero José Luis Chilavert como máxima leyenda."
+  },
+  "qatar": {
+    nombre: "Qatar", bandera: "🇶🇦",
+    clasificacion: "Clasificó como invitado especial a través de la AFC, siendo el ex-anfitrión del Mundial 2022 que participa en el siguiente torneo.",
+    mejorMomento: "En Qatar 2022 fue el primer anfitrión mundialista en ser eliminado en la fase de grupos, perdiendo los tres partidos. Sin embargo, organizó el mejor torneo de la historia del evento.",
+    curiosidad: "Qatar invirtió más de 200 mil millones de dólares en infraestructura para el Mundial 2022, siendo la Copa del Mundo más cara de la historia por un margen abismal."
+  },
+  "suiza": {
+    nombre: "Suiza", bandera: "🇨🇭",
+    clasificacion: "Clasificó primera en su grupo de Eliminatorias UEFA con 8 victorias y sin perder ningún partido.",
+    mejorMomento: "Llegó a cuartos de final en Brasil 2014 y en Qatar 2022, eliminando a Francia en la última edición en un dramático partido de penales.",
+    curiosidad: "Suiza eliminó al campeón del mundo Francia en Qatar 2022 en octavos de final remontando un 3-1, con Kylian Mbappé fallando el penal decisivo."
+  },
+  "bosnia": {
+    nombre: "Bosnia y Herzegovina", bandera: "🇧🇦",
+    clasificacion: "Clasificó ganando el repechaje UEFA, venciendo a Grecia y Finlandia en la llave de playoff.",
+    mejorMomento: "Su único Mundial anterior fue Brasil 2014, debut histórico de la selección, donde quedaron en fase de grupos con Edin Džeko como figura.",
+    curiosidad: "Bosnia y Herzegovina declaró la independencia en 1992 y apenas 22 años después debutó en un Mundial. Edin Džeko marcó el primer gol de su historia mundialista ante Nigeria."
+  },
+  "canada": {
+    nombre: "Canadá", bandera: "🇨🇦",
+    clasificacion: "Clasificó como co-anfitrión automáticamente y también terminó tercero en las Eliminatorias CONCACAF.",
+    mejorMomento: "Su único antecedente mundialista fue México 1986, donde no marcó ningún gol y quedó eliminado en grupos. Qatar 2022 fue su verdadero regreso histórico.",
+    curiosidad: "Alphonso Davies, nacido en un campo de refugiados en Ghana, emigró a Canadá de niño y se convirtió en el jugador canadiense más valioso de la historia, jugando en el Bayern Munich."
+  },
+  "corea del sur": {
+    nombre: "Corea del Sur", bandera: "🇰🇷",
+    clasificacion: "Clasificó primera en el Grupo A de las Eliminatorias AFC con 17 puntos en 6 partidos.",
+    mejorMomento: "En el Mundial de Corea-Japón 2002 (jugado como co-anfitrión) llegó a las semifinales, siendo el mejor resultado de un equipo asiático en la historia del torneo.",
+    curiosidad: "Corea del Sur tiene 11 clasificaciones mundiales consecutivas desde 1986, siendo el equipo asiático con mayor presencia seguida en Copas del Mundo."
+  },
+  "sudafrica": {
+    nombre: "Sudáfrica", bandera: "🇿🇦",
+    clasificacion: "Clasificó ganando el Grupo A de las Eliminatorias Africanas (CAF), siendo la selección del continente con más experiencia mundialista.",
+    mejorMomento: "Organizó el Mundial 2010, siendo el primer torneo en suelo africano, donde llegó a la fase de grupos con la emblemática vuvuzela como símbolo del torneo.",
+    curiosidad: "La vuvuzela, el instrumento de viento que inundó el sonido del Mundial 2010, es un invento sudafricano que casi fue prohibido por la FIFA por el nivel de ruido que generaba."
+  },
+  "mexico": {
+    nombre: "México", bandera: "🇲🇽",
+    clasificacion: "Clasificó como co-anfitrión automáticamente y terminó primero en las Eliminatorias CONCACAF.",
+    mejorMomento: "Llegó a cuartos de final en México 1986 (como anfitrión) y en cinco Mundiales más, pero nunca pudo superar esa barrera, conocida como 'el quinto partido'.",
+    curiosidad: "México tiene el récord de no poder superar los cuartos de final en 8 Mundiales consecutivos, fenómeno que sus hinchas llaman 'el quinto partido' o la 'maldición del quinto juego'."
+  },
+  "rep. checa": {
+    nombre: "República Checa", bandera: "🇨🇿",
+    clasificacion: "Clasificó ganando el repechaje UEFA, eliminando a Dinamarca en los penales en una dramática serie.",
+    mejorMomento: "Como Checoslovaquia fue subcampeón mundial en 1934 y 1962. Ya como República Checa llegó a cuartos en Francia 1998 y tiene a Pavel Nedvěd como su mayor leyenda.",
+    curiosidad: "República Checa clasificó al último cupo disponible del repechaje europeo, completando las 48 selecciones del Mundial en el partido más tenso de la clasificación UEFA."
+  },
+  "egipto": {
+    nombre: "Egipto", bandera: "🇪🇬",
+    clasificacion: "Clasificó ganando el Grupo G de las Eliminatorias Africanas (CAF), con Mohamed Salah como máximo artillero de la campaña.",
+    mejorMomento: "Su mejor actuación fue en Italia 1990, donde llegó a la fase de grupos invicto. Ganó tres Copas Africanas de Naciones consecutivas (2006, 2008, 2010).",
+    curiosidad: "Mohamed Salah pateó penales en la clasificación africana con récord de efectividad y es considerado el mejor jugador africano de los últimos 10 años."
+  },
+  "eslovaquia": {
+    nombre: "Eslovaquia", bandera: "🇸🇰",
+    clasificacion: "Clasificó en el repechaje UEFA tras terminar segunda en su grupo de Eliminatorias.",
+    mejorMomento: "Su mejor actuación fue en Sudáfrica 2010, donde llegó a octavos de final eliminando a Italia, campeón vigente del mundo.",
+    curiosidad: "Eslovaquia eliminó al campeón del mundo Italia en Sudáfrica 2010, uno de los mayores batacazos mundialistas de la historia reciente."
+  },
+  "bielorrusia": {
+    nombre: "Bielorrusia", bandera: "🇧🇾",
+    clasificacion: "Clasificó por primera vez en su historia al ganar el repechaje UEFA en la última fecha.",
+    mejorMomento: "Este sería su debut absoluto en Copas del Mundo. Su mejor momento fue la clasificación para la Euro 2016 donde estuvo cerca de avanzar.",
+    curiosidad: "Bielorrusia es uno de los países de Europa con mayor pasión futbolística pero menor éxito histórico, clasificando al primer Mundial de su historia después de 30 años de intentos."
+  },
+  "peru": {
+    nombre: "Perú", bandera: "🇵🇪",
+    clasificacion: "Clasificó séptimo en las Eliminatorias CONMEBOL, pasando por el repechaje intercontinental donde venció a una selección asiática.",
+    mejorMomento: "Su mejor actuación fue en Argentina 1978, donde llegó a la segunda fase de grupos. También participó en México 1970 y fue subcampeón de la Copa América en múltiples ocasiones.",
+    curiosidad: "Perú llegó al Mundial 1978 y en el partido que definía el pase de Argentina a la final, perdió 6-0 ante Argentina en un resultado que generó suspicacias históricas."
+  }
+};
+
+function normalizar(str) {
+  return (str || '').toLowerCase()
+    .replace(/[áàä]/g,'a').replace(/[éèë]/g,'e')
+    .replace(/[íìï]/g,'i').replace(/[óòö]/g,'o')
+    .replace(/[úùü]/g,'u').replace(/ñ/g,'n')
+    .replace(/rep\.\s*/gi,'rep. ')
+    .replace(/\bbosnia.*$/,'bosnia')
+    .replace(/[^a-z0-9 .]/g,'')
+    .replace(/\s+/g,' ').trim();
+}
+
+function buscarEquipo(nombre) {
+  // 1. Primero limpiar el nombre de entrada completamente
+  var raw = (nombre || '').trim();
+  // Eliminar emojis de banderas (surrogate pairs U+D83C + U+DDE0-DDFF) y otros
+  var limpio = raw
+    .replace(/[\uD83C][\uDDE0-\uDDFF]/g, '')  // flags emoji (regional indicators)
+    .replace(/[\uD83C-\uDBFF][\uDC00-\uDFFF]/g, '') // otros emoji surrogate pairs
+    .replace(/[\u2600-\u27BF]/g, '')            // miscelaneos
+    .replace(/\s+/g, ' ').trim();
+
+  var key = normalizar(limpio);
+  if (!key) return null;
+
+  // 2. Busqueda exacta por clave del objeto
+  if (EQUIPOS_DATA[key]) return EQUIPOS_DATA[key];
+
+  // 3. Busqueda exacta por nombre normalizado del equipo
+  for (var k in EQUIPOS_DATA) {
+    var n = normalizar(EQUIPOS_DATA[k].nombre);
+    if (key === n) return EQUIPOS_DATA[k];
+  }
+
+  // 4. Busqueda: el key empieza con la clave (ej: "rep. checa" en "rep. checa xxx")
+  for (var k in EQUIPOS_DATA) {
+    if (key === k) return EQUIPOS_DATA[k];
+    // Solo matchear si key EMPIEZA con k o k EMPIEZA con key (no substring en el medio)
+    if (key.indexOf(k) === 0 && k.length >= 4) return EQUIPOS_DATA[k];
+    if (k.indexOf(key) === 0 && key.length >= 4) return EQUIPOS_DATA[k];
+  }
+
+  // 5. Busqueda por nombre normalizado (mismo criterio estricto)
+  for (var k in EQUIPOS_DATA) {
+    var n = normalizar(EQUIPOS_DATA[k].nombre);
+    if (key.indexOf(n) === 0 && n.length >= 4) return EQUIPOS_DATA[k];
+    if (n.indexOf(key) === 0 && key.length >= 4) return EQUIPOS_DATA[k];
+  }
+
+  return null;
+}
+
+function stripEmoji(s) {
+  // Usar Array.from para manejar correctamente los surrogate pairs / code points
+  try {
+    return Array.from(s || '')
+      .filter(function(ch) {
+        var cp = ch.codePointAt(0);
+        // Filtrar: banderas (regional indicators), emoji varios, símbolos
+        if (cp >= 0x1F1E0 && cp <= 0x1F1FF) return false; // regional indicators (banderas)
+        if (cp >= 0x1F000 && cp <= 0x1FFFF) return false; // emoji extendidos
+        if (cp >= 0x2600  && cp <= 0x27BF)  return false; // misceláneos
+        if (cp >= 0xD800  && cp <= 0xDFFF)  return false; // surrogates solos
+        if (cp === 0xFE0F || cp === 0x20E3) return false; // variation selectors
+        return true;
+      })
+      .join('')
+      .replace(/\s+/g, ' ').trim();
+  } catch(e) {
+    return (s || '').replace(/[\s]+/g,' ').trim();
+  }
+}
+
+function cerrarModal() {
+  document.getElementById('modalOverlay').classList.remove('activo');
+}
+
+// Cerrar con click fuera o ESC
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) cerrarModal();
+});
+document.getElementById('modalClose').addEventListener('click', cerrarModal);
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') cerrarModal();
+});
+
+// Delegación de eventos: captura clicks en cualquier .partido, presente o futuro
+document.getElementById('contenido').addEventListener('click', function(e) {
+  var card = e.target.closest('.partido');
+  if (card) abrirModal(card);
+});
+
+function abrirModal(card) {
+  var numEl     = card.querySelector('.partido-hora .hora');
+  var zonaEl    = card.querySelector('.partido-hora .zona');
+  var equiposEl = card.querySelector('.equipos');
+  var sedeEl    = card.querySelector('.sede-tag');
+  var canalesEl = card.querySelector('.canales');
+
+  var numTxt     = numEl     ? numEl.textContent.trim()  : '';
+  var zonaTxt    = zonaEl    ? zonaEl.textContent.trim() : '';
+  // Reconstruir el texto limpio de equipos directamente del DOM
+  // en vez de innerText que puede incluir saltos de linea de spans hijos
+  var equiposTxt = '';
+  if (equiposEl) {
+    // Recorrer todos los nodos y concatenar solo texto visible
+    var allText = '';
+    equiposEl.childNodes.forEach(function(nodo) {
+      if (nodo.nodeType === 3) { // texto plano
+        allText += nodo.textContent;
+      } else if (nodo.nodeType === 1) { // elemento (span, etc)
+        allText += nodo.textContent;
+      }
+    });
+    equiposTxt = allText.replace(/\s+/g, ' ').trim();
+  }
+  var sedeTxt    = sedeEl    ? sedeEl.textContent.trim() : '';
+  var canalesHTML= canalesEl ? canalesEl.innerHTML       : '';
+
+  var hora = zonaTxt, fecha = 'Hora Argentina';
+  if (zonaTxt.indexOf(' \u00b7 ') !== -1) {
+    var pts = zonaTxt.split(' \u00b7 ');
+    hora  = pts[0];
+    fecha = pts.slice(1).join(' \u00b7 ');
+  } else if (zonaTxt.indexOf(' · ') !== -1) {
+    var pts = zonaTxt.split(' · ');
+    hora  = pts[0];
+    fecha = pts.slice(1).join(' · ');
+  }
+
+  var fase = card.closest('[data-fase="grupos"]') ? 'Fase de Grupos' : 'Eliminación Directa';
+
+  // Parsear equipos: "🇲🇽 México vs. Sudáfrica 🇿🇦"
+  var partes = equiposTxt.split(' vs. ');
+  var eq1 = stripEmoji(partes[0] || '').replace(/\s+/g,' ').trim();
+  var eq2 = stripEmoji(partes[1] || '').replace(/\s+/g,' ').trim();
+  // Quitar notas entre paréntesis o corchetes
+  eq1 = eq1.replace(/\s*[\(\[].*$/, '').trim();
+  eq2 = eq2.replace(/\s*[\(\[].*$/, '').trim();
+  // Normalizar ALL CAPS → Title case
+  if (eq1 === eq1.toUpperCase() && eq1.length > 2) eq1 = eq1.charAt(0) + eq1.slice(1).toLowerCase();
+  if (eq2 === eq2.toUpperCase() && eq2.length > 2) eq2 = eq2.charAt(0) + eq2.slice(1).toLowerCase();
+  // Log para debug
+  console.log('Modal equipos:', JSON.stringify({eq1: eq1, eq2: eq2}));
+
+  document.getElementById('modalNum').textContent    = numTxt + ' · ' + fase;
+  document.getElementById('modalTitulo').textContent = equiposTxt.replace(/\s+/g,' ').trim();
+  document.getElementById('modalHora').textContent   = hora;
+  document.getElementById('modalFecha').textContent  = fecha;
+  document.getElementById('modalSede').textContent   = sedeTxt;
+  document.getElementById('modalCanales').innerHTML  = canalesHTML;
+  document.getElementById('modalBody').innerHTML     =
+    '<div class="modal-loading"><div class="spinner"></div><div>Cargando información...</div></div>';
+  document.getElementById('modalOverlay').classList.add('activo');
+
+  var esGanador = /^(gan|perdedor)/i.test(eq1.trim());
+  if (esGanador) {
+    document.getElementById('modalBody').innerHTML =
+      '<div style="padding:2rem;color:var(--muted);text-align:center;">' +
+      '<p style="font-size:2.5rem">&#127942;</p>' +
+      '<p>Los equipos se determinarán una vez completada la fase anterior.</p></div>';
+    return;
+  }
+
+  setTimeout(function() {
+    var e1 = buscarEquipo(eq1) || {nombre:eq1, bandera:'🏳️', clasificacion:'Info no disponible.', mejorMomento:'Info no disponible.', curiosidad:'Info no disponible.'};
+    var e2 = buscarEquipo(eq2) || {nombre:eq2, bandera:'🏳️', clasificacion:'Info no disponible.', mejorMomento:'Info no disponible.', curiosidad:'Info no disponible.'};
+    renderEquipos(e1, e2);
+  }, 250);
+}
+
+function renderEquipos(e1, e2) {
+  function card(e) {
+    return '<div class="modal-equipo-card">' +
+      '<div class="modal-equipo-nombre">' + (e.bandera||'') + ' ' + e.nombre + '</div>' +
+      '<div class="modal-equipo-info">' +
+        '<span class="lbl">&#128203; Clasificación</span>' + e.clasificacion +
+        '<span class="lbl">&#11088; Mejor momento</span>' + e.mejorMomento +
+        '<span class="lbl">&#128161; Dato curioso</span>' + e.curiosidad +
+      '</div></div>';
+  }
+  document.getElementById('modalBody').innerHTML =
+    '<div class="modal-equipos-grid">' + card(e1) + card(e2) + '</div>';
+}
+// ====== FIN POPUP ======
+
+// ====== PESTAÑAS ======
+function cambiarTab(tab, btn) {
+  document.querySelectorAll('.nav-tab').forEach(function(b){ b.classList.remove('activo'); });
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('activo'); });
+  btn.classList.add('activo');
+  document.getElementById('tab-' + tab).classList.add('activo');
+  if (tab === 'posiciones' && !window._standingsLoaded) {
+    cargarPosiciones();
+  }
+  if (tab === 'resultados' && !window._matchesLoaded) {
+    cargarResultados();
+  }
+  if (tab === 'selecciones' && !window._seleccionesLoaded) {
+    renderSelGrid();
+    window._seleccionesLoaded = true;
+  }
+}
+
+// ====== POSICIONES Y RESULTADOS EN VIVO ======
+var API_KEY = 'wc26_QV1aRkam9XAjcBHEkDf4nr';
+var API_BASE = 'https://api.wc2026api.com';
+var _autoRefreshTimer = null;
+window._standingsLoaded = false;
+window._matchesLoaded = false;
+
+// Proxies CORS para fallback cuando se abre como file://
+var CORS_PROXIES = [
+  function(u){ return u; }, // directo primero
+  function(u){ return 'https://corsproxy.io/?' + encodeURIComponent(u); },
+  function(u){ return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); },
+];
+
+async function apiFetch(endpoint) {
+  var url = API_BASE + endpoint;
+
+  // Lanzar todos los proxies EN PARALELO y usar el que responda primero con exito
+  var fetchConProxy = function(proxyFn) {
+    return new Promise(function(resolve, reject) {
+      var fetchUrl = proxyFn(url);
+      fetch(fetchUrl, { headers: { 'Authorization': 'Bearer ' + API_KEY } })
+        .then(function(res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(resolve)
+        .catch(reject);
+    });
+  };
+
+  // Promise.any: resuelve con el primero que tenga exito, ignora los que fallen
+  if (typeof Promise.any === 'function') {
+    return Promise.any(CORS_PROXIES.map(fetchConProxy));
+  }
+
+  // Fallback para browsers viejos sin Promise.any: secuencial pero con timeout corto
+  var lastErr;
+  for (var i = 0; i < CORS_PROXIES.length; i++) {
+    try {
+      var result = await Promise.race([
+        fetchConProxy(CORS_PROXIES[i]),
+        new Promise(function(_, reject) { setTimeout(function(){ reject(new Error('timeout')); }, 4000); })
+      ]);
+      return result;
+    } catch(e) { lastErr = e; }
+  }
+  throw lastErr || new Error('No se pudo conectar');
+}
+
+// ===== STANDINGS =====
+var BANDERAS_EN = {
+  'Mexico':'🇲🇽','South Africa':'🇿🇦','Korea Republic':'🇰🇷','South Korea':'🇰🇷','Republic of Korea':'🇰🇷',
+  'Canada':'🇨🇦','Switzerland':'🇨🇭','Bosnia and Herzegovina':'🇧🇦','Bosnia-Herzegovina':'🇧🇦','Bosnia':'🇧🇦',
+  'Brazil':'🇧🇷','Morocco':'🇲🇦','Haiti':'🇭🇹','Scotland':'🏴󠁧󠁢󠁳󠁣󠁴󠁿','Australia':'🇦🇺','Turkey':'🇹🇷','Turkiye':'🇹🇷',
+  'Germany':'🇩🇪','Ivory Coast':'🇨🇮',"Cote d'Ivoire":'🇨🇮',"Côte d'Ivoire":'🇨🇮','Ecuador':'🇪🇨',
+  'Netherlands':'🇳🇱','Japan':'🇯🇵','Sweden':'🇸🇪','Tunisia':'🇹🇳','Spain':'🇪🇸','Saudi Arabia':'🇸🇦',
+  'Uruguay':'🇺🇾','Cape Verde':'🇨🇻','Belgium':'🇧🇪','Iran':'🇮🇷','New Zealand':'🇳🇿','France':'🇫🇷',
+  'Senegal':'🇸🇳','Iraq':'🇮🇶','Norway':'🇳🇴','Argentina':'🇦🇷','Algeria':'🇩🇿','Austria':'🇦🇹',
+  'Jordan':'🇯🇴','Portugal':'🇵🇹','Uzbekistan':'🇺🇿','Colombia':'🇨🇴','DR Congo':'🇨🇩','Congo DR':'🇨🇩',
+  'England':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','Croatia':'🇭🇷','Ghana':'🇬🇭','Panama':'🇵🇦','United States':'🇺🇸','USA':'🇺🇸',
+  'Paraguay':'🇵🇾','Qatar':'🇶🇦','Czechia':'🇨🇿','Czech Republic':'🇨🇿','Egypt':'🇪🇬',
+  'Curacao':'🇨🇼','Curaçao':'🇨🇼'
+};
+function getBF(name){ return BANDERAS_EN[name] || '🏳️'; }
+
+var EQUIPOS_POR_GRUPO = {
+  'A':['México','Sudáfrica','Corea del Sur','Rep. Checa'],
+  'B':['Canadá','Qatar','Suiza','Bosnia'],
+  'C':['Brasil','Marruecos','Escocia','Haití'],
+  'D':['Estados Unidos','Paraguay','Turquía','Australia'],
+  'E':['Alemania','Costa de Marfil','Ecuador','Curazao'],
+  'F':['Países Bajos','Japón','Suecia','Túnez'],
+  'G':['Bélgica','Irán','Nueva Zelanda','Egipto'],
+  'H':['España','Arabia Saudita','Uruguay','Cabo Verde'],
+  'I':['Francia','Senegal','Noruega','Irak'],
+  'J':['Argentina','Austria','Jordania','Argelia'],
+  'K':['Portugal','Uzbekistán','Colombia','Rep. D. Congo'],
+  'L':['Inglaterra','Croacia','Ghana','Panamá']
+};
+var BAND_ES = {'México':'🇲🇽','Sudáfrica':'🇿🇦','Corea del Sur':'🇰🇷','Rep. Checa':'🇨🇿','Canadá':'🇨🇦','Qatar':'🇶🇦','Suiza':'🇨🇭','Bosnia':'🇧🇦','Brasil':'🇧🇷','Marruecos':'🇲🇦','Escocia':'🏴󠁧󠁢󠁳󠁣󠁴󠁿','Haití':'🇭🇹','Estados Unidos':'🇺🇸','Paraguay':'🇵🇾','Turquía':'🇹🇷','Australia':'🇦🇺','Alemania':'🇩🇪','Costa de Marfil':'🇨🇮','Ecuador':'🇪🇨','Curazao':'🇨🇼','Países Bajos':'🇳🇱','Japón':'🇯🇵','Suecia':'🇸🇪','Túnez':'🇹🇳','Bélgica':'🇧🇪','Irán':'🇮🇷','Nueva Zelanda':'🇳🇿','Egipto':'🇪🇬','España':'🇪🇸','Arabia Saudita':'🇸🇦','Uruguay':'🇺🇾','Cabo Verde':'🇨🇻','Francia':'🇫🇷','Senegal':'🇸🇳','Noruega':'🇳🇴','Irak':'🇮🇶','Argentina':'🇦🇷','Austria':'🇦🇹','Jordania':'🇯🇴','Argelia':'🇩🇿','Portugal':'🇵🇹','Uzbekistán':'🇺🇿','Colombia':'🇨🇴','Rep. D. Congo':'🇨🇩','Inglaterra':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','Croacia':'🇭🇷','Ghana':'🇬🇭','Panamá':'🇵🇦'};
+
+async function cargarPosiciones() {
+  var box = document.getElementById('posContainer');
+  box.innerHTML = '<div class="pos-loading"><div class="spinner"></div><div>Cargando posiciones...</div></div>';
+  try {
+    var data = await apiFetch('/standings');
+    renderStandings(data);
+    window._standingsLoaded = true;
+    iniciarAutoRefreshStandings();
+  } catch(err) {
+    renderStandingsVacio();
+  }
+}
+
+// Calendario de partidos del Mundial 2026 (UTC) para saber cuándo hay acción
+// Fase de grupos: 11 Jun - 27 Jun | 16avos: 28 Jun - 3 Jul | etc.
+var TORNEO_START = new Date('2026-06-11T20:00:00Z'); // primer partido
+var TORNEO_END   = new Date('2026-07-19T23:59:00Z'); // final
+
+function hayTorneoActivo() {
+  var now = new Date();
+  return now >= TORNEO_START && now <= TORNEO_END;
+}
+
+function getIntervaloRefresh() {
+  // Fuera del torneo: no refrescar
+  if (!hayTorneoActivo()) return null;
+  var hora = new Date().getUTCHours();
+  // Franja horaria de partidos (13:00-03:00 UTC aprox = 10:00-00:00 ARG)
+  var enVentanaPartidos = (hora >= 13 || hora <= 3);
+  if (enVentanaPartidos) return 60000;  // cada 60 seg si puede haber partidos
+  return 10 * 60 * 1000; // cada 10 min fuera de horario de partidos
+}
+
+function iniciarAutoRefreshStandings() {
+  if (_autoRefreshTimer) clearInterval(_autoRefreshTimer);
+  if (!hayTorneoActivo()) return; // sin torneo = sin refresh
+
+  function scheduleNext() {
+    var intervalo = getIntervaloRefresh();
+    if (!intervalo) return;
+    _autoRefreshTimer = setTimeout(async function() {
+      var tab = document.getElementById('tab-posiciones');
+      if (tab && tab.classList.contains('activo')) {
+        try {
+          var data = await apiFetch('/standings');
+          renderStandings(data);
+        } catch(e) {}
+      }
+      scheduleNext(); // programar el siguiente
+    }, intervalo);
+  }
+  scheduleNext();
+}
+
+function renderStandings(data) {
+  var grupos = Array.isArray(data) ? data : (data.groups || data.standings || data.data || []);
+  if (!grupos.length) { renderStandingsVacio(); return; }
+  grupos.sort(function(a,b){
+    var na=(a.group||a.group_name||a.name||'').toUpperCase();
+    var nb=(b.group||b.group_name||b.name||'').toUpperCase();
+    return na<nb?-1:na>nb?1:0;
+  });
+  var now = new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+  var html = '<div class="pos-leyenda"><span><span class="dot" style="background:#2ecc71"></span> Clasifica directo (1°/2°)</span><span><span class="dot" style="background:#f39c12"></span> Posible clasificado (3°)</span></div><div class="pos-grupos-grid">';
+  grupos.forEach(function(g){
+    var nombre = (g.group||g.group_name||g.name||'?').toUpperCase();
+    var equipos = g.teams||g.standings||g.entries||[];
+    equipos.sort(function(a,b){ return (a.position||a.rank||0)-(b.position||b.rank||0); });
+    html += '<div class="pos-grupo"><div class="pos-grupo-titulo">⚽ Grupo '+nombre+'</div><table class="pos-tabla"><thead><tr><th colspan="2">Equipo</th><th title="Jugados">PJ</th><th title="Ganados">G</th><th title="Empatados">E</th><th title="Perdidos">P</th><th>GF</th><th>GC</th><th>DG</th><th>Pts</th></tr></thead><tbody>';
+    equipos.forEach(function(eq,idx){
+      var pos=eq.position||eq.rank||(idx+1);
+      var team=eq.team||eq.team_name||eq.name||'';
+      var tn=(typeof team==='object')?(team.name||team.short_name||''):team;
+      var pj=eq.played||eq.matches_played||eq.mp||0;
+      var g2=eq.won||eq.wins||eq.w||0;
+      var e=eq.drawn||eq.draws||eq.d||0;
+      var p=eq.lost||eq.losses||eq.l||0;
+      var gf=eq.goals_for||eq.gf||eq.goals_scored||0;
+      var gc=eq.goals_against||eq.ga||eq.goals_conceded||0;
+      var dg=eq.goal_difference||eq.gd||(gf-gc);
+      var pts=eq.points||eq.pts||0;
+      var b=getBF(tn);
+      var rc=pos<=2?'clasificado-directo':pos===3?'clasificado-tercero':'eliminado';
+      html+='<tr class="'+rc+'"><td style="width:18px;padding-left:.5rem"><span class="pos-pos">'+pos+'</span></td><td><span class="pos-bandera">'+b+'</span>'+tn+'</td><td>'+pj+'</td><td>'+g2+'</td><td>'+e+'</td><td>'+p+'</td><td>'+gf+'</td><td>'+gc+'</td><td>'+(dg>0?'+':'')+dg+'</td><td class="pos-pts">'+pts+'</td></tr>';
+    });
+    html+='</tbody></table></div>';
+  });
+  html+='</div><div class="pos-actualizado">🔄 Actualización automática cada 60 seg · Última: '+now+' <button class="pos-refresh-btn" onclick="window._standingsLoaded=false;cargarPosiciones()">Actualizar ahora</button></div>';
+  document.getElementById('posContainer').innerHTML = html;
+}
+
+function renderStandingsVacio() {
+  var aviso='<div style="text-align:center;padding:.8rem;background:#1a0f00;border:1px solid #3a2800;border-radius:4px;margin-bottom:1rem;font-size:.8rem;color:#f39c12;">⚡ Las posiciones en vivo estarán disponibles desde el <strong>11 de junio de 2026</strong>. Mostrando los grupos del torneo.</div>';
+  var html=aviso+'<div class="pos-leyenda"><span><span class="dot" style="background:#2ecc71"></span> Clasifica directo (1°/2°)</span><span><span class="dot" style="background:#f39c12"></span> Posible clasificado (3°)</span></div><div class="pos-grupos-grid">';
+  ['A','B','C','D','E','F','G','H','I','J','K','L'].forEach(function(g){
+    var equipos=EQUIPOS_POR_GRUPO[g]||[];
+    html+='<div class="pos-grupo"><div class="pos-grupo-titulo">⚽ Grupo '+g+'</div><table class="pos-tabla"><thead><tr><th colspan="2">Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>GF</th><th>GC</th><th>DG</th><th>Pts</th></tr></thead><tbody>';
+    equipos.forEach(function(eq,idx){
+      var rc=idx<2?'clasificado-directo':idx===2?'clasificado-tercero':'eliminado';
+      var b=BAND_ES[eq]||'🏳️';
+      html+='<tr class="'+rc+'"><td style="width:18px;padding-left:.5rem"><span class="pos-pos">'+(idx+1)+'</span></td><td><span class="pos-bandera">'+b+'</span>'+eq+'</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="pos-pts">0</td></tr>';
+    });
+    html+='</tbody></table></div>';
+  });
+  html+='</div><div class="pos-actualizado">Torneo inicia 11 Jun 2026 <button class="pos-refresh-btn" onclick="window._standingsLoaded=false;cargarPosiciones()">🔄 Reintentar</button></div>';
+  document.getElementById('posContainer').innerHTML = html;
+}
+
+// ===== RESULTADOS EN VIVO =====
+var _matchesTimer = null;
+
+async function cargarResultados() {
+  var box = document.getElementById('matchesContainer');
+  if (!box) return;
+  box.innerHTML = '<div class="pos-loading"><div class="spinner"></div><div>Cargando partidos...</div></div>';
+  try {
+    var data = await apiFetch('/matches');
+    renderResultados(data);
+    window._matchesLoaded = true;
+    if (_matchesTimer) clearInterval(_matchesTimer);
+    // Refresh inteligente: solo durante el torneo y en horario de partidos
+    function scheduleNextMatches() {
+      if (!hayTorneoActivo()) return;
+      var intervalo = getIntervaloRefresh();
+      // Durante partidos: 30 seg; fuera de horario: 5 min
+      if (intervalo === 60000) intervalo = 30000;
+      else if (intervalo) intervalo = 5 * 60 * 1000;
+      else return;
+      _matchesTimer = setTimeout(async function() {
+        var tab = document.getElementById('tab-resultados');
+        if (tab && tab.classList.contains('activo')) {
+          try { var d = await apiFetch('/matches'); renderResultados(d); } catch(e) {}
+        }
+        scheduleNextMatches();
+      }, intervalo);
+    }
+    scheduleNextMatches();
+  } catch(err) {
+    renderResultadosVacio(err.message);
+  }
+}
+
+function statusLabel(status) {
+  var s = (status||'').toLowerCase();
+  if (s==='live'||s==='in_progress'||s==='inprogress') return '<span class="match-live-dot"></span><span class="match-status-live">EN VIVO</span>';
+  if (s==='finished'||s==='ft'||s==='completed') return '<span class="match-status-ft">FT</span>';
+  if (s==='halftime'||s==='ht') return '<span class="match-status-live">HT</span>';
+  return '<span class="match-status-sched">Programado</span>';
+}
+
+function renderResultados(data) {
+  var matches = Array.isArray(data) ? data : (data.matches || data.data || []);
+  if (!matches.length) { renderResultadosVacio('Sin partidos disponibles'); return; }
+
+  // Agrupar por fecha local Argentina
+  var grupos = {};
+  matches.forEach(function(m){
+    var d = m.kickoff_utc || m.date || m.datetime || '';
+    var fecha = d ? new Date(d).toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'}) : 'Sin fecha';
+    if (!grupos[fecha]) grupos[fecha] = [];
+    grupos[fecha].push(m);
+  });
+
+  var now = new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+  var hayVivo = matches.some(function(m){ var s=(m.status||'').toLowerCase(); return s==='live'||s==='in_progress'; });
+  var html = '';
+  if (hayVivo) html += '<div class="match-live-banner">🔴 HAY PARTIDOS EN VIVO · Actualizando cada 30 segundos</div>';
+
+  Object.keys(grupos).forEach(function(fecha){
+    var ms = grupos[fecha];
+    html += '<div class="match-dia-header"><span class="match-dia-nombre">'+fecha+'</span></div>';
+    ms.forEach(function(m){
+      var home = m.home_team||m.home||'?';
+      var away = m.away_team||m.away||'?';
+      var hn = (typeof home==='object')?(home.name||home):home;
+      var an = (typeof away==='object')?(away.name||away):away;
+      var hb = getBF(hn);
+      var ab = getBF(an);
+      var hs = m.home_score!=null?m.home_score:(m.score?m.score.home:'-');
+      var as2 = m.away_score!=null?m.away_score:(m.score?m.score.away:'-');
+      var status = m.status||m.state||'scheduled';
+      var isLive = (status+'').toLowerCase()==='live'||(status+'').toLowerCase()==='in_progress';
+      var isFT = (status+'').toLowerCase()==='finished'||(status+'').toLowerCase()==='ft';
+      var grupo = m.group_name||m.group||'';
+      var ronda = m.round||'';
+      var hora = m.kickoff_utc ? new Date(m.kickoff_utc).toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'}) : '';
+
+      html += '<div class="match-card'+(isLive?' match-card-live':'')+(isFT?' match-card-ft':'')+'">';
+      html += '<div class="match-meta">'+(grupo?'Grupo '+grupo+' · ':'')+ronda+(hora?' · '+hora+' ARG':'')+'</div>';
+      html += '<div class="match-row">';
+      html += '<div class="match-team match-team-home"><span class="match-flag">'+hb+'</span><span class="match-tname">'+hn+'</span></div>';
+      if (isLive||isFT) {
+        html += '<div class="match-score'+(isLive?' match-score-live':'')+'">'+hs+' <span class="match-score-sep">-</span> '+as2+'</div>';
+      } else {
+        html += '<div class="match-score-sched">'+statusLabel(status)+'</div>';
+      }
+      html += '<div class="match-team match-team-away"><span class="match-tname">'+an+'</span><span class="match-flag">'+ab+'</span></div>';
+      html += '</div>';
+      html += '<div class="match-status-row">'+statusLabel(status)+'</div>';
+      html += '</div>';
+    });
+  });
+
+  html += '<div class="pos-actualizado">🔄 '+(hayVivo?'Actualizando cada 30 seg':'Cada 60 seg')+' · Última: '+now+' <button class="pos-refresh-btn" onclick="window._matchesLoaded=false;cargarResultados()">Actualizar ahora</button></div>';
+  document.getElementById('matchesContainer').innerHTML = html;
+}
+
+function renderResultadosVacio(msg) {
+  document.getElementById('matchesContainer').innerHTML =
+    '<div style="text-align:center;padding:3rem 1rem;color:var(--muted);">'+
+    '<p style="font-size:2rem;margin-bottom:.5rem">⚽</p>'+
+    '<p style="color:#f39c12;font-size:.9rem">Los resultados en vivo estarán disponibles desde el <strong>11 de junio de 2026</strong>.</p>'+
+    '<p style="margin-top:.5rem;font-size:.75rem;color:#555">'+(msg||'')+'</p>'+
+    '<button class="pos-refresh-btn" style="margin-top:1rem" onclick="window._matchesLoaded=false;cargarResultados()">🔄 Reintentar</button>'+
+    '</div>';
+}
+// ====== FIN POSICIONES Y RESULTADOS EN VIVO ======
+
+
+// ====== SELECCIONES ======
+var SEL_DATA = [
+  {nombre:'Argentina',     bandera:'🇦🇷', grupo:'J', conf:'CONMEBOL'},
+  {nombre:'Brasil',        bandera:'🇧🇷', grupo:'C', conf:'CONMEBOL'},
+  {nombre:'Colombia',      bandera:'🇨🇴', grupo:'K', conf:'CONMEBOL'},
+  {nombre:'Ecuador',       bandera:'🇪🇨', grupo:'E', conf:'CONMEBOL'},
+  {nombre:'Paraguay',      bandera:'🇵🇾', grupo:'D', conf:'CONMEBOL'},
+  {nombre:'Uruguay',       bandera:'🇺🇾', grupo:'H', conf:'CONMEBOL'},
+  {nombre:'México',        bandera:'🇲🇽', grupo:'A', conf:'CONCACAF'},
+  {nombre:'Estados Unidos',bandera:'🇺🇸', grupo:'D', conf:'CONCACAF'},
+  {nombre:'Canadá',        bandera:'🇨🇦', grupo:'B', conf:'CONCACAF'},
+  {nombre:'Panamá',        bandera:'🇵🇦', grupo:'L', conf:'CONCACAF'},
+  {nombre:'Haití',         bandera:'🇭🇹', grupo:'C', conf:'CONCACAF'},
+  {nombre:'Curazao',       bandera:'🇨🇼', grupo:'E', conf:'CONCACAF'},
+  {nombre:'Francia',       bandera:'🇫🇷', grupo:'I', conf:'UEFA'},
+  {nombre:'España',        bandera:'🇪🇸', grupo:'H', conf:'UEFA'},
+  {nombre:'Alemania',      bandera:'🇩🇪', grupo:'E', conf:'UEFA'},
+  {nombre:'Inglaterra',    bandera:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', grupo:'L', conf:'UEFA'},
+  {nombre:'Portugal',      bandera:'🇵🇹', grupo:'K', conf:'UEFA'},
+  {nombre:'Países Bajos',  bandera:'🇳🇱', grupo:'F', conf:'UEFA'},
+  {nombre:'Bélgica',       bandera:'🇧🇪', grupo:'G', conf:'UEFA'},
+  {nombre:'Croacia',       bandera:'🇭🇷', grupo:'L', conf:'UEFA'},
+  {nombre:'Suiza',         bandera:'🇨🇭', grupo:'B', conf:'UEFA'},
+  {nombre:'Suecia',        bandera:'🇸🇪', grupo:'F', conf:'UEFA'},
+  {nombre:'Noruega',       bandera:'🇳🇴', grupo:'I', conf:'UEFA'},
+  {nombre:'Austria',       bandera:'🇦🇹', grupo:'J', conf:'UEFA'},
+  {nombre:'Escocia',       bandera:'🏴󠁧󠁢󠁳󠁣󠁴󠁿', grupo:'C', conf:'UEFA'},
+  {nombre:'Rep. Checa',    bandera:'🇨🇿', grupo:'A', conf:'UEFA'},
+  {nombre:'Bosnia',        bandera:'🇧🇦', grupo:'B', conf:'UEFA'},
+  {nombre:'Turquía',       bandera:'🇹🇷', grupo:'D', conf:'UEFA'},
+  {nombre:'Marruecos',     bandera:'🇲🇦', grupo:'C', conf:'CAF'},
+  {nombre:'Senegal',       bandera:'🇸🇳', grupo:'I', conf:'CAF'},
+  {nombre:'Egipto',        bandera:'🇪🇬', grupo:'G', conf:'CAF'},
+  {nombre:'Costa de Marfil',bandera:'🇨🇮', grupo:'E', conf:'CAF'},
+  {nombre:'Ghana',         bandera:'🇬🇭', grupo:'L', conf:'CAF'},
+  {nombre:'Sudáfrica',     bandera:'🇿🇦', grupo:'A', conf:'CAF'},
+  {nombre:'Cabo Verde',    bandera:'🇨🇻', grupo:'H', conf:'CAF'},
+  {nombre:'Rep. D. Congo', bandera:'🇨🇩', grupo:'K', conf:'CAF'},
+  {nombre:'Túnez',         bandera:'🇹🇳', grupo:'F', conf:'CAF'},
+  {nombre:'Argelia',       bandera:'🇩🇿', grupo:'J', conf:'CAF'},
+  {nombre:'Japón',         bandera:'🇯🇵', grupo:'F', conf:'AFC'},
+  {nombre:'Corea del Sur', bandera:'🇰🇷', grupo:'A', conf:'AFC'},
+  {nombre:'Arabia Saudita',bandera:'🇸🇦', grupo:'H', conf:'AFC'},
+  {nombre:'Irán',          bandera:'🇮🇷', grupo:'G', conf:'AFC'},
+  {nombre:'Irak',          bandera:'🇮🇶', grupo:'I', conf:'AFC'},
+  {nombre:'Qatar',         bandera:'🇶🇦', grupo:'B', conf:'AFC'},
+  {nombre:'Uzbekistán',    bandera:'🇺🇿', grupo:'K', conf:'AFC'},
+  {nombre:'Australia',     bandera:'🇦🇺', grupo:'D', conf:'AFC'},
+  {nombre:'Jordania',      bandera:'🇯🇴', grupo:'J', conf:'AFC'},
+  {nombre:'Nueva Zelanda', bandera:'🇳🇿', grupo:'G', conf:'OFC'},
+];
+SEL_DATA.sort(function(a,b){ return a.nombre < b.nombre ? -1 : 1; });
+
+window._seleccionesLoaded = false;
+var _selCache = {};
+
+function renderSelGrid() {
+  var grupos = ['todos','A','B','C','D','E','F','G','H','I','J','K','L'];
+
+  // Construir nav con data-attributes para evitar problemas de escapado
+  var navDiv = document.createElement('div');
+  navDiv.className = 'sel-grupos-nav';
+  grupos.forEach(function(g) {
+    var btn = document.createElement('button');
+    btn.className = 'sel-grupo-btn' + (g === 'todos' ? ' activo' : '');
+    btn.textContent = g === 'todos' ? 'Todos' : 'Grupo ' + g;
+    btn.dataset.grupo = g;
+    btn.addEventListener('click', function() { filtrarSelGrupo(g, btn); });
+    navDiv.appendChild(btn);
+  });
+
+  // Construir grilla con data-attributes
+  var gridDiv = document.createElement('div');
+  gridDiv.className = 'sel-grid';
+  gridDiv.id = 'selGrid';
+  SEL_DATA.forEach(function(s) {
+    var card = document.createElement('div');
+    card.className = 'sel-card';
+    card.dataset.grupo = s.grupo;
+    card.innerHTML =
+      '<span class="sel-card-flag">' + s.bandera + '</span>' +
+      '<div class="sel-card-info">' +
+        '<div class="sel-card-nombre">' + s.nombre + '</div>' +
+        '<div class="sel-card-grupo">' + s.conf + ' &middot; Grupo ' + s.grupo + '</div>' +
+      '</div>' +
+      '<span class="sel-card-arrow">&rsaquo;</span>';
+    card.addEventListener('click', function() { abrirSeleccion(s.nombre); });
+    gridDiv.appendChild(card);
+  });
+
+  var container = document.getElementById('selContainer');
+  container.innerHTML = '<p class="sel-intro">Hac&eacute; clic en una selecci&oacute;n para ver el plantel convocado y las estad&iacute;sticas de sus jugadores.</p>';
+  container.appendChild(navDiv);
+  container.appendChild(gridDiv);
+}
+
+function filtrarSelGrupo(grupo, btn) {
+  document.querySelectorAll('.sel-grupo-btn').forEach(function(b){ b.classList.remove('activo'); });
+  btn.classList.add('activo');
+  document.querySelectorAll('.sel-card').forEach(function(c){
+    c.style.display = (grupo==='todos' || c.dataset.grupo===grupo) ? '' : 'none';
+  });
+}
+
+function abrirSeleccion(nombre) {
+  var sel = SEL_DATA.find(function(s){ return s.nombre===nombre; });
+  if (!sel) return;
+  document.getElementById('selContainer').style.display = 'none';
+  var det = document.getElementById('selDetalle');
+  det.style.display = 'block';
+  document.getElementById('selDetalleTitulo').textContent = sel.bandera + ' ' + sel.nombre;
+  document.getElementById('selDetalleSub').textContent = sel.conf + ' · Grupo ' + sel.grupo;
+  if (_selCache[nombre]) { renderPlantel(_selCache[nombre]); return; }
+  document.getElementById('selDetalleBody').innerHTML =
+    '<div class="sel-loading-inline"><div class="spinner"></div><span>Generando plantel de '+sel.nombre+'...</span></div>';
+  generarPlantelConIA(sel);
+}
+
+function volverSelecciones() {
+  document.getElementById('selDetalle').style.display = 'none';
+  document.getElementById('selContainer').style.display = 'block';
+}
+
+async function generarPlantelConIA(sel) {
+  var prompt = 'Responde SOLO con JSON valido, sin texto extra, sin markdown.\n\n'+
+    'Genera el plantel convocado de '+sel.nombre+' para el Mundial 2026 con 26 jugadores probables.\n'+
+    'Formato exacto:\n'+
+    '{"dt":"Nombre DT","jugadores":[{"numero":1,"nombre":"Nombre Apellido","posicion":"Portero","club":"Club","edad":28,"partidos":45,"goles":3,"asistencias":7}]}\n\n'+
+    'Posiciones: Portero (3), Defensor (8), Mediocampista (8), Delantero (7).\n'+
+    'Usar jugadores reales y conocidos de '+sel.nombre+' proyectados para 2026.\n'+
+    'Estadisticas aproximadas de temporada 2025/26.';
+
+  try {
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 3000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var d = await res.json();
+    var txt = (d.content&&d.content[0]&&d.content[0].text)||'';
+    var clean = txt.replace(/```json|```/g,'').trim();
+    var plantel = JSON.parse(clean);
+    _selCache[sel.nombre] = plantel;
+    renderPlantel(plantel);
+  } catch(err) {
+    document.getElementById('selDetalleBody').innerHTML =
+      '<div style="padding:2rem;color:var(--muted);text-align:center;">'+
+      '<p style="font-size:1.5rem">&#128203;</p>'+
+      '<p style="margin-top:.5rem;color:#f39c12;">No se pudo cargar el plantel de <strong>'+sel.nombre+'</strong>.</p>'+
+      '<p style="font-size:.75rem;margin-top:.5rem">Los planteles definitivos se publican ~10 dias antes del torneo.</p>'+
+      '<button class="pos-refresh-btn" style="margin-top:1rem" id="btnRetryPlantel">&nbsp;&#8635; Reintentar</button>'+
+      '</div>';
+  }
+}
+
+function renderPlantel(data) {
+  var body = document.getElementById('selDetalleBody');
+  var dt = data.dt || '';
+  var jugadores = data.jugadores || [];
+  var posOrden = ['Portero','Defensor','Mediocampista','Delantero'];
+  var iconos = {Portero:'&#129348;',Defensor:'&#128737;&#65039;',Mediocampista:'&#9881;&#65039;',Delantero:'&#9917;'};
+  var porPos = {};
+  posOrden.forEach(function(p){ porPos[p]=[]; });
+  jugadores.forEach(function(j){
+    var pos = j.posicion||'Otro';
+    if (!porPos[pos]) porPos[pos]=[];
+    porPos[pos].push(j);
+  });
+  var html = '<div class="sel-ai-badge">&#9889; Plantel proyectado por IA &middot; Sujeto a confirmaci&oacute;n oficial</div>';
+  if (dt) html += '<div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;">&#127965;&#65039; Director T&eacute;cnico: <strong style="color:var(--text)">'+dt+'</strong></div>';
+  posOrden.forEach(function(pos){
+    var lista = porPos[pos]||[];
+    if (!lista.length) return;
+    html += '<div class="sel-pos-section">'+
+      '<div class="sel-pos-titulo">'+(iconos[pos]||'')+' '+pos+'s ('+lista.length+')</div>'+
+      '<div class="sel-jugadores-grid">';
+    lista.forEach(function(j){
+      html += '<div class="sel-jugador-card">'+
+        '<div class="sel-jugador-num">'+(j.numero||'')+'</div>'+
+        '<div class="sel-jugador-info">'+
+          '<div class="sel-jugador-nombre">'+j.nombre+'</div>'+
+          '<div class="sel-jugador-club">'+j.club+(j.edad?' &middot; '+j.edad+' a&ntilde;os':'')+'</div>'+
+          '<div class="sel-jugador-stats">'+
+            '<div class="sel-stat"><span class="sel-stat-val">'+(j.partidos||0)+'</span><span class="sel-stat-lbl">PJ</span></div>'+
+            '<div class="sel-stat"><span class="sel-stat-val">'+(j.goles||0)+'</span><span class="sel-stat-lbl">Goles</span></div>'+
+            '<div class="sel-stat"><span class="sel-stat-val">'+(j.asistencias||0)+'</span><span class="sel-stat-lbl">Asis.</span></div>'+
+          '</div>'+
+        '</div>'+
+      '</div>';
+    });
+    html += '</div></div>';
+  });
+  body.innerHTML = html;
+}
+// ====== FIN SELECCIONES ======
+
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    // Solo registrar SW si estamos en un servidor real (no previsualización)
+    var host = window.location.hostname;
+    var esServidor = host !== '' && !host.includes('claudeusercontent');
+    if (!esServidor) return;
+    navigator.serviceWorker.register('sw.js')
+      .then(function(reg) { console.log('SW registrado:', reg.scope); })
+      .catch(function(err) { console.warn('SW no disponible:', err.message); });
+  });
+}
+</script>
+</body>
+</html>

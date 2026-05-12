@@ -1,0 +1,33 @@
+{
+  "name": "Mundial 2026",
+  "short_name": "Mundial 2026",
+  "description": "Calendario, posiciones, resultados y planteles del Mundial 2026 USA·México·Canadá",
+  "start_url": "/mundial2026.html",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#f5c518",
+  "orientation": "portrait-primary",
+  "lang": "es",
+  "categories": ["sports", "news"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "mundial2026.html",
+      "sizes": "390x844",
+      "type": "text/html"
+    }
+  ]
+}
